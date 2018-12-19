@@ -20,6 +20,10 @@ import {roleCardComponent} from './list/card_component';
 import {roleCardListComponent} from './list/cardlist_component';
 import {roleListResource} from './list/stateconfig';
 import stateConfig from './stateconfig';
+import configMapModule from "../configmap/module";
+import eventsModule from "../events/module";
+import namespaceModule from "../common/namespace/module";
+import {roleInfoComponent} from "../role/detail/info_component";
 
 /**
  * Angular module for the Role list view.
@@ -33,9 +37,13 @@ export default angular
           'ui.router',
           filtersModule.name,
           componentsModule.name,
+          configMapModule.name,
+          eventsModule.name,
           chromeModule.name,
+          namespaceModule.name,
         ])
     .config(stateConfig)
     .component('kdRoleCardList', roleCardListComponent)
     .component('kdRoleCard', roleCardComponent)
+    .component('kdRoleInfo', roleInfoComponent)
     .factory('kdRoleListResource', roleListResource);

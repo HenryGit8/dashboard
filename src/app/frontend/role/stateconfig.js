@@ -16,6 +16,8 @@ import {stateName as chromeStateName} from '../chrome/state';
 import {stateName as listState} from './list/state';
 import {config as listConfig} from './list/stateconfig';
 import {stateName} from './state';
+import {stateName as detailState} from "../role/detail/state";
+import {config as detailConfig} from "../role/detail/stateconfig";
 /**
  * Configures states for the Role resource.
  *
@@ -23,7 +25,8 @@ import {stateName} from './state';
  * @ngInject
  */
 export default function stateConfig($stateProvider) {
-  $stateProvider.state(stateName, config).state(listState, listConfig);
+  $stateProvider.state(stateName, config).state(listState, listConfig)
+  .state(detailState, detailConfig);
 }
 
 /**

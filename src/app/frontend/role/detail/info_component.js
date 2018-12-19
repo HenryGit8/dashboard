@@ -15,16 +15,28 @@
 /**
  * @final
  */
-export class ActionBarController {
+export default class RoleInfoController {
   /**
-   * @ngInject
+   * Constructs rolebinding info object.
    */
-  constructor(rolebindingDetail) {
-    this.details = rolebindingDetail;
-  }
-
-  gettypemeta(){
-    this.details.kind = this.details.kind.toLowerCase();
-    return this.details;
+  constructor() {
+    /**
+     * Rolebinding details. Initialized from the scope.
+     * @export {!backendApi.RolebindingDetail}
+     */
+    this.role;
   }
 }
+
+/**
+ * Definition object for the component that displays replica set info.
+ *
+ * @type {!angular.Component}
+ */
+export const roleInfoComponent = {
+  controller: RoleInfoController,
+  templateUrl: 'role/detail/info.html',
+  bindings: {
+    'role': '=',
+  },
+};

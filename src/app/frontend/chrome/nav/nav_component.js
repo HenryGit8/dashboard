@@ -36,7 +36,7 @@ import {stateName as settingsState} from '../../settings/state';
 import {stateName as statefulSetState} from '../../statefulset/list/state';
 import {stateName as storageClassState} from '../../storageclass/list/state';
 import {stateName as workloadState} from '../../workloads/state';
-import {stateName as roleBindingState} from '../../rolebinding/list/state';
+import {stateName as roleBindingState} from '../../rolebinding/detail/state';
 import {stateName as serviceAccountState} from '../../serviceaccount/list/state';
 
 

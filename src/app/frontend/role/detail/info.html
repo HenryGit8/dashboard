@@ -1,0 +1,62 @@
+<!--
+Copyright 2017 The Kubernetes Authors.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
+<kd-info-card>
+  <kd-info-card-header>[[Details|Header in a detail view]]</kd-info-card-header>
+  <kd-info-card-section>
+    <kd-object-meta-info-card object-meta="::$ctrl.role.metadata">
+    </kd-object-meta-info-card>
+    <kd-info-card-entry title="[[King|Label 'King' for the role on the role details page.]]">
+      {{::$ctrl.role.kind}}
+    </kd-info-card-entry>
+    <!--<kd-info-card-entry title="[[Rules|Rules for the role on the role details page.]]">
+      <div ng-repeat="rule in ::$ctrl.role.rules">
+        [[Verbs|Verbs in a detail view]]
+        <div ng-repeat="item in ::rule.verbs">
+          [[—]]<kd-middle-ellipsis display-string="{{::item}}"
+                              flex="shrink">
+            <kd-middle-ellipsis>
+        </div>
+
+        [[ApiGroups|Verbs in a detail view]]
+        <div ng-repeat="item in ::rule.apiGroups">
+          [[—]]<kd-middle-ellipsis display-string="{{::item}}"
+                              flex="shrink">
+            <kd-middle-ellipsis>
+        </div>
+
+        [[Resources|Verbs in a detail view]]
+        <div ng-repeat="item in ::rule.resources">
+          [[—]]<kd-middle-ellipsis display-string="{{::item}}"
+                              flex="shrink">
+            <kd-middle-ellipsis>
+        </div>
+      </div>
+    </kd-info-card-entry>
+  </kd-info-card-section>-->
+
+  <div ng-repeat="rule in ::$ctrl.role.rules">
+    <kd-info-card-entry title="[[Verbs|Verbs for the role on the role details page.]]">
+      <kd-simple-labels simplelabels="::rule.verbs"></kd-simple-labels>
+    </kd-info-card-entry>
+    <kd-info-card-entry title="[[ApiGroups|ApiGroups for the role on the role details page.]]">
+      <kd-simple-labels simplelabels="::rule.apiGroups"></kd-simple-labels>
+    </kd-info-card-entry>
+    <kd-info-card-entry title="[[Resources|Resources for the role on the role details page.]]">
+      <kd-simple-labels simplelabels="::rule.resources"></kd-simple-labels>
+    </kd-info-card-entry>
+  </div>
+</kd-info-card>

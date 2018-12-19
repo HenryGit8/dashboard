@@ -27,6 +27,7 @@ import endpointModule from './endpoint/module';
 import graphModule from './graph/module';
 import infoCardModule from './infocard/infocard_module';
 import {labelComponent} from './labels/component';
+import {simplelabelComponent} from './simplelabels/component';
 import {middleEllipsisComponent} from './middleellipsis/component';
 import {podWarningsComponent} from './podwarnings/component';
 import resourceCardModule from './resourcecard/resourcecard_module';
@@ -63,6 +64,7 @@ export default angular
           allocatedResourcesChartModule.name,
         ])
     .component('kdLabels', labelComponent)
+    .component('kdSimpleLabels', simplelabelComponent)
     .component('kdZeroState', zeroStateComponent)
     .component('kdMiddleEllipsis', middleEllipsisComponent)
     .component('kdSparkline', sparklineComponent)

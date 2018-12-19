@@ -18,13 +18,11 @@ import filtersModule from '../common/filters/module';
 import namespaceModule from '../common/namespace/module';
 import configMapModule from '../configmap/module';
 import eventsModule from '../events/module';
-import persistentvolumeclaimModule from '../persistentvolumeclaim/module';
 
 import {containerInfoComponent} from './detail/containerinfo_component';
 import {creatorInfoComponent} from './detail/creatorinfo_component';
 import {rolebindingInfoComponent} from './detail/info_component';
 import {rolebindingEventsResource} from './detail/stateconfig';
-import {rolebindingPersistentVolumeClaimsResource} from './detail/stateconfig';
 import {rolebindingCardComponent} from './list/card_component';
 import {rolebindingCardListComponent} from './list/cardlist_component';
 import {rolebindingListResource} from './list/stateconfig';
@@ -46,7 +44,6 @@ export default angular
           eventsModule.name,
           filtersModule.name,
           namespaceModule.name,
-          persistentvolumeclaimModule.name,
         ])
     .config(stateConfig)
     .component('kdRolebindingCard', rolebindingCardComponent)

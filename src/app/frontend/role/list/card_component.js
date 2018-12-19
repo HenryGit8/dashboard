@@ -12,6 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import {stateName} from "../../role/detail/state";
+import {StateParams} from "../../common/resource/resourcedetail";
+
 /**
  * Controller for the RBAC role card.
  *
@@ -21,12 +24,30 @@ class RoleCardController {
   /**
    * @ngInject
    */
-  constructor() {
+  constructor($state) {
     /**
      * Initialized from the scope.
      * @export {!backendApi.Role}
      */
     this.role;
+
+    /** @private {!ui.router.$state} */
+    this.state_ = $state;
+  }
+
+  /**
+   * @return {string}
+   * @export
+   */
+  getRoleDetailHref() {
+    if(this.role.objectMeta.namespace !== undefined){
+      return this.state_.href(
+        stateName, new StateParams(this.role.objectMeta.namespace, this.role.objectMeta.name));
+
+    }else {
+      return this.state_.href(
+        stateName, new StateParams("#nonamespace",this.role.objectMeta.name));
+    }
   }
 }
 

@@ -12,24 +12,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+
 /**
  * @final
  */
-export class PodDetailController {
+export class RolebindingDetailController {
   /**
-   * @param {!backendApi.PodDetail} podDetail
-   * @param {!angular.Resource} kdPodEventsResource
-   * @param {!angular.Resource} kdPodPersistentVolumeClaimsResource
    * @ngInject
    */
-  constructor(podDetail, kdPodEventsResource, kdPodPersistentVolumeClaimsResource) {
-    /** @export {!backendApi.PodDetail} */
-    this.podDetail = podDetail;
-
-    /** @export {!angular.Resource} */
-    this.eventListResource = kdPodEventsResource;
-
-    /**@export {!angular.Resource} */
-    this.persistentVolumeClaimsResource = kdPodPersistentVolumeClaimsResource;
+  constructor(rolebindingDetail) {
+    this.rolebindingDetail = rolebindingDetail;
   }
 }

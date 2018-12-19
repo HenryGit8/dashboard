@@ -51,8 +51,14 @@ export class RolebindingCardController {
    * @export
    */
   getRolebindingDetailHref() {
-    return this.state_.href(
-        stateName, new StateParams(this.rolebinding.objectMeta.namespace, this.rolebinding.objectMeta.name));
+    if(this.rolebinding.objectMeta.namespace !== undefined){
+        return this.state_.href(
+          stateName, new StateParams(this.rolebinding.objectMeta.namespace, this.rolebinding.objectMeta.name));
+
+    }else {
+      return this.state_.href(
+        stateName, new StateParams("#nonamespace",this.rolebinding.objectMeta.name));
+    }
   }
 
   /**

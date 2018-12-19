@@ -63,12 +63,12 @@ export function rolebindingListResource($resource) {
 
 /**
  * @param {!angular.Resource} kdRolebindingListResource
- * @param {!./../../chrome/state.StateParams} $stateParams
  * @param {!./../../common/dataselect/service.DataSelectService} kdDataSelectService
  * @return {!angular.$q.Promise}
  * @ngInject
  */
-export function resolveRolebindingList(kdRolebindingListResource, $stateParams, kdDataSelectService) {
-  let dataSelectQuery = kdDataSelectService.getDefaultResourceQuery($stateParams.namespace);
+export function resolveRolebindingList(kdRolebindingListResource, kdDataSelectService) {
+  let dataSelectQuery = kdDataSelectService.getDefaultResourceQuery();
+  console.log(dataSelectQuery)
   return kdRolebindingListResource.get(dataSelectQuery).$promise;
 }

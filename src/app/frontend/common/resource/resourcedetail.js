@@ -33,5 +33,6 @@ export class StateParams extends ResourceGlobalStateParams {
 }
 
 export function appendDetailParamsToUrl(baseUrl) {
+  console.info(`${baseUrl}/{objectNamespace:[^/]+}/{objectName:[^/]+}`)
   return `${baseUrl}/{objectNamespace:[^/]+}/{objectName:[^/]+}`;
 }

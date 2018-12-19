@@ -12,19 +12,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+
 /**
  * @final
  */
-export class ActionBarController {
+export class RoleDetailController {
   /**
    * @ngInject
    */
-  constructor(rolebindingDetail) {
-    this.details = rolebindingDetail;
-  }
-
-  gettypemeta(){
-    this.details.kind = this.details.kind.toLowerCase();
-    return this.details;
+  constructor(roleDetail) {
+    this.roleDetail = roleDetail;
   }
 }

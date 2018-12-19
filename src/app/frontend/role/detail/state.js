@@ -12,19 +12,5 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-/**
- * @final
- */
-export class ActionBarController {
-  /**
-   * @ngInject
-   */
-  constructor(rolebindingDetail) {
-    this.details = rolebindingDetail;
-  }
-
-  gettypemeta(){
-    this.details.kind = this.details.kind.toLowerCase();
-    return this.details;
-  }
-}
+/** Name of the state. Can be used in, e.g., $state.go method. */
+export const stateName = 'roledetail';

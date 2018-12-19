@@ -113,18 +113,18 @@ limitations under the License.
   <kd-resource-card-columns>
     <kd-resource-card-column>
       <div>
-        <a ng-href="{{::$ctrl.getDeploymentDetailHref()}}"
+        <a ng-href="{{::$ctrl.getRolebindingDetailHref()}}"
            style="display: block;">
           <kd-middle-ellipsis display-string="{{$ctrl.rolebinding.objectMeta.name}}">
           </kd-middle-ellipsis>
         </a>
       </div>
     </kd-resource-card-column>
-    <kd-resource-card-column>
-      <div>
-        <kd-middle-ellipsis display-string="{{::$ctrl.rolebinding.objectMeta.namespace}}">
-        </kd-middle-ellipsis>
-      </div>
+    <kd-resource-card-column ng-switch="::!!$ctrl.rolebinding.objectMeta.namespace">
+      <kd-middle-ellipsis ng-switch-when="false"
+                          display-string="All Namespaces">
+      </kd-middle-ellipsis>
+      <div ng-switch-default>{{::$ctrl.rolebinding.objectMeta.namespace}}</div>
     </kd-resource-card-column>
     <kd-resource-card-column>
       <kd-labels labels="::$ctrl.rolebinding.objectMeta.labels"></kd-labels>
@@ -142,20 +142,13 @@ limitations under the License.
         [[Created at| Tooltip for the age column ]] {{::$ctrl.rolebinding.objectMeta.creationTimestamp | date}}
       </md-tooltip>
     </kd-resource-card-column>
-    <!--<kd-resource-card-column class="kd-row-layout-column kd-icon-column">
+    <kd-resource-card-column class="kd-row-layout-column kd-icon-column">
       <kd-resource-card-menu>
-        <kd-scale-button resource-kind-display-name="[[Deployment|Label 'Deployment' which will appear in the rolebinding scale dialog opened from a rolebinding card on the list page.]]"
-                         resource-kind-name="$ctrl.rolebinding.typeMeta.kind"
-                         object-meta="$ctrl.rolebinding.objectMeta"
-                         current-pods="$ctrl.rolebinding.pods.current"
-                         desired-pods="$ctrl.rolebinding.pods.desired"
-                         menu-item="true">
-        </kd-scale-button>
-        <kd-resource-card-delete-menu-item resource-kind-name="[[Deployment|Label 'Deployment' which will appear in the rolebinding delete dialog opened from a rolebinding card on the list page.]]">
+        <kd-resource-card-delete-menu-item resource-kind-name="[[Rolebinding|Label 'Rolebinding' which will appear in the rolebinding delete dialog opened from a rolebinding card on the list page.]]">
         </kd-resource-card-delete-menu-item>
-        <kd-resource-card-edit-menu-item resource-kind-name="[[Deployment|Label 'Deployment' which will appear in the rolebinding edit dialog opened from a rolebinding card on the list page.]]">
+        <kd-resource-card-edit-menu-item resource-kind-name="[[Rolebinding|Label 'Rolebinding' which will appear in the rolebinding edit dialog opened from a rolebinding card on the list page.]]">
         </kd-resource-card-edit-menu-item>
       </kd-resource-card-menu>
-    </kd-resource-card-column>-->
+    </kd-resource-card-column>
   </kd-resource-card-columns>
 </kd-resource-card>

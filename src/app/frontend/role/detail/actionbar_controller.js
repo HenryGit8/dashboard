@@ -19,8 +19,8 @@ export class ActionBarController {
   /**
    * @ngInject
    */
-  constructor(rolebindingDetail) {
-    this.details = rolebindingDetail;
+  constructor(roleDetail) {
+    this.details = roleDetail;
   }
 
   gettypemeta(){

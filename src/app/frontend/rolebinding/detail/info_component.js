@@ -12,49 +12,45 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import {GlobalStateParams} from '../../common/resource/globalresourcedetail';
-import {stateName} from '../../node/detail/state';
-
 /**
  * @final
  */
-class PodInfoController {
+export default class RolebindingInfoController {
   /**
-   * Constructs pod info object.
-   * @param {!ui.router.$state} $state
-   * @ngInject
+   * Constructs rolebinding info object.
    */
-  constructor($state) {
+  constructor() {
     /**
-     * Pod details. Initialized from the scope.
-     * @export {!backendApi.PodDetail}
+     * Rolebinding details. Initialized from the scope.
+     * @export {!backendApi.RolebindingDetail}
      */
-    this.pod;
-
-    /** @private {!ui.router.$state} */
-    this.state_ = $state;
+    this.rolebinding;
   }
 
-  /**
-   * Returns link to connected node details page.
-   * @return {string}
-   * @export
-   */
-  getNodeDetailsHref() {
-    return this.state_.href(stateName, new GlobalStateParams(this.pod.nodeName));
-  }
+  /*getAccount(){
+    let subjects = this.rolebinding.subjects;
+    console.log(subjects)
+    let accounts=new Object();
+    for (var i=0;i<subjects.length;i++)
+    {
+      console.log(subjects[i].name)
+      console.log(JSON.stringify(subjects[i]))
+      accounts.subjects[i].name=JSON.stringify(subjects[i]);
+    }
+    console.log(JSON.stringify(accounts))
+    return JSON.stringify(accounts);
+  }*/
 }
 
 /**
- * Definition object for the component that displays pod info.
+ * Definition object for the component that displays replica set info.
  *
- * @return {!angular.Component}
+ * @type {!angular.Component}
  */
 export const rolebindingInfoComponent = {
-  controller: PodInfoController,
-  templateUrl: 'pod/detail/info.html',
+  controller: RolebindingInfoController,
+  templateUrl: 'rolebinding/detail/info.html',
   bindings: {
-    /** {!backendApi.PodDetail} */
-    'pod': '<',
+    'rolebinding': '=',
   },
 };

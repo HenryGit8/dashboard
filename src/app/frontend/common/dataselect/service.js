@@ -197,8 +197,9 @@ export class DataSelectService {
   getDefaultResourceQuery(namespace, name) {
     namespace = namespace || '';
     name = name || '';
+    console.log(namespace)
     let query = this.newDataSelectQueryBuilder().setNamespace(namespace).setName(name).build();
-
+    console.log(query)
     if (this.kdNamespaceService_.isMultiNamespace(query.namespace)) {
       query.namespace = '';
     }

@@ -20,18 +20,27 @@
 # golang is based on debian:jessie
 FROM golang
 
-# Install Java and Node.js. Go is already installed.
+# Install Java, Node.js and Chromium browser. Go is already installed.
 # A small tweak, apt-get update is already run by the nodejs setup script, so there's no need to run it again.
 RUN curl -sL https://deb.nodesource.com/setup_9.x | bash - \
   && apt-get install -y --no-install-recommends \
 	openjdk-8-jre \
 	nodejs \
 	patch \
+	chromium \
 	&& rm -rf /var/lib/apt/lists/* \
 	&& apt-get clean
 
+# Set environment variable for JavaScript tests.
+ENV CHROME_BIN=/usr/bin/chromium
+
 # Download a statically linked docker client, so the container is able to build images on the host.
-RUN curl -sSL https://get.docker.com/builds/Linux/x86_64/docker-1.9.1 > /usr/bin/docker && \
+RUN curl -sSL https://download.docker.com/linux/static/stable/x86_64/docker-18.06.1-ce.tgz > /tmp/docker.tgz && \
+	cd /tmp/ && \
+	tar xzvf docker.tgz && \
+	rm docker.tgz && \
+	mv /tmp/docker/docker /usr/bin/docker && \
+	rm -rf /tmp/docker/ && \
     chmod +x /usr/bin/docker
 
 # Current directory is always /dashboard.

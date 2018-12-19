@@ -58,14 +58,14 @@ func TestIntegrationManager_GetState(t *testing.T) {
 			"Server provided and using in-cluster heapster",
 			"http://127.0.0.1:8080", "", &api.IntegrationState{
 				Connected: false,
-				Error:     errors.New("Get http://127.0.0.1:8080/api/v1/namespaces/kube-system/services/heapster/proxy/healthz: dial tcp 127.0.0.1:8080: getsockopt: connection refused"),
+				Error:     errors.New("Get http://127.0.0.1:8080/api/v1/namespaces/kube-system/services/heapster/proxy/healthz: dial tcp 127.0.0.1:8080: connect: connection refused"),
 			}, nil,
 		},
 		{
 			"Server provided and using external heapster",
 			"http://127.0.0.1:8080", "http://127.0.0.1:8081", &api.IntegrationState{
 				Connected: false,
-				Error:     errors.New("Get http://127.0.0.1:8081/healthz: dial tcp 127.0.0.1:8081: getsockopt: connection refused"),
+				Error:     errors.New("Get http://127.0.0.1:8081/healthz: dial tcp 127.0.0.1:8081: connect: connection refused"),
 			}, nil,
 		},
 	}
@@ -82,10 +82,12 @@ func TestIntegrationManager_GetState(t *testing.T) {
 		}
 
 		// Time is irrelevant so we don't need to check it
-		if c.expectedErr == nil && (!areErrorsEqual(state.Error, c.expected.Error) ||
-			state.Connected != c.expected.Connected) {
+		if c.expectedErr == nil && (!areErrorsEqual(state.Error, c.expected.Error)) {
 			t.Errorf("Test Case: %s. Expected state to be: %v, but got %v.",
-				c.info, c.expected, state)
+				c.info, c.expected.Error, state.Error)
+		} else if (state.Connected != c.expected.Connected) {
+			t.Errorf("Test Case: %s. Could not connect to API server.",
+				c.info)
 		}
 	}
 }

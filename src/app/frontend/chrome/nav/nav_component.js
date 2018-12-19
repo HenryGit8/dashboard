@@ -36,6 +36,9 @@ import {stateName as settingsState} from '../../settings/state';
 import {stateName as statefulSetState} from '../../statefulset/list/state';
 import {stateName as storageClassState} from '../../storageclass/list/state';
 import {stateName as workloadState} from '../../workloads/state';
+import {stateName as roleBindingState} from '../../rolebinding/state';
+import {stateName as serviceAccountState} from '../../serviceaccount/state';
+
 
 /**
  * @final
@@ -55,6 +58,8 @@ export class NavController {
       'node': nodeState,
       'workload': workloadState,
       'cluster': clusterState,
+      'roleBinding': roleBindingState,
+      'serviceaccount': serviceAccountState,
       'pod': podState,
       'deployment': deploymentState,
       'replicaSet': replicaSetState,

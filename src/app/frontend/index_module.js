@@ -45,6 +45,8 @@ import overviewModule from './overview/module';
 import persistentVolumeModule from './persistentvolume/module';
 import persistentVolumeClaimModule from './persistentvolumeclaim/module';
 import podModule from './pod/module';
+import serviceAccountModule from './serviceaccount/module';
+import rolebindingModule from './rolebinding/module';
 import replicaSetModule from './replicaset/module';
 import replicationControllerModule from './replicationcontroller/module';
 import resourceLimitModule from './resourcelimit/module';
@@ -110,6 +112,8 @@ export default angular
           storageClassModule.name,
           roleModule.name,
           scalingModule.name,
+          serviceAccountModule.name,
+          rolebindingModule.name,
         ])
     .config(indexConfig)
     .config(routeConfig)

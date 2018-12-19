@@ -29,6 +29,8 @@ limitations under the License.
     <!-- Enabled dynamically if the rbac is enabled in the cluster. -->
     <kd-role-nav states="$ctrl.states"></kd-role-nav>
     <kd-nav-item class="kd-nav-item"
+                 state="{{::$ctrl.states.serviceAccount}}">[[ServiceAccount|serviceAccount menu entry.]]</kd-nav-item>
+    <kd-nav-item class="kd-nav-item"
                  state="{{::$ctrl.states.storageClass}}">[[Storage Classes|Storage Classes menu entry.]]</kd-nav-item>
   </div>
   <div class="kd-nav-group-divider"></div>
@@ -50,6 +52,8 @@ limitations under the License.
                  state="{{::$ctrl.states.job}}">[[Jobs|Jobs menu entry.]]</kd-nav-item>
     <kd-nav-item class="kd-nav-item"
                  state="{{::$ctrl.states.pod}}">[[Pods|Pods menu entry.]]</kd-nav-item>
+    <kd-nav-item class="kd-nav-item"
+                 state="{{::$ctrl.states.roleBinding}}">[[RoleBinding|roleBinding menu entry.]]</kd-nav-item>
     <kd-nav-item class="kd-nav-item"
                  state="{{::$ctrl.states.replicaSet}}">[[Replica Sets|Replica Sets entry.]]</kd-nav-item>
     <kd-nav-item class="kd-nav-item"

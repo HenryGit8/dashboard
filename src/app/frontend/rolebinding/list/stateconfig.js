@@ -58,7 +58,7 @@ export const config = {
  * @ngInject
  */
 export function rolebindingListResource($resource) {
-  return $resource('api/v1/deployment/:namespace');
+  return $resource('api/v1/rbac/rolebinding');
 }
 
 /**

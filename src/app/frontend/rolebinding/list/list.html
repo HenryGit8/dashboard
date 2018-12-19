@@ -16,18 +16,6 @@ limitations under the License.
 
 <kd-warnings warnings="::$ctrl.rolebindingList.errors"></kd-warnings>
 
-<div layout="row">
-  <kd-graph-card graph-title="[[CPU usage|Title for graph card displaying CPU metric of pods.]]"
-                 metrics="::$ctrl.rolebindingList.cumulativeMetrics"
-                 selected-metric-names="'cpu/usage_rate'">
-  </kd-graph-card>
-  <kd-graph-card graph-title="[[Memory usage|Title for graph card displaying memory metric of pods.]]"
-                 graph-info="[[The memory usage includes the caches in these pods.|Help message detailing what is included in the memory usage]]"
-                 metrics="::$ctrl.rolebindingList.cumulativeMetrics"
-                 selected-metric-names="'memory/usage'">
-  </kd-graph-card>
-</div>
-
 <kd-content-card>
   <kd-content>
     <kd-rolebinding-card-list rolebinding-list="$ctrl.rolebindingList"

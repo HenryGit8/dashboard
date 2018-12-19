@@ -45,40 +45,6 @@ export class RolebindingCardController {
     return this.kdNamespaceService_.areMultipleNamespacesSelected();
   }
 
-  /**
-   * Returns true if this rolebinding has warnings, false otherwise
-   * @return {boolean}
-   */
-  hasWarnings() {
-    return this.rolebinding.warnings.length > 0;
-  }
-
-  /**
-   * Returns true if this rolebinding has no warnings and is in pending state, false otherwise
-   * @return {boolean}
-   * @export
-   */
-  isPending() {
-    // rolebindingPhase should be Pending if init containers are running but we are being extra thorough.
-    return this.rolebinding.rolebindingStatus.status === 'Pending';
-  }
-
-  /**
-   * @return {boolean}
-   * @export
-   */
-  isSuccess() {
-    return this.rolebinding.rolebindingStatus.status === 'Succeeded' || this.rolebinding.rolebindingStatus.status === 'Running';
-  }
-
-  /**
-   * Checks if rolebinding status is failed.
-   * @return {boolean}
-   * @export
-   */
-  isFailed() {
-    return this.rolebinding.rolebindingStatus.status === 'Failed';
-  }
 
   /**
    * @return {string}

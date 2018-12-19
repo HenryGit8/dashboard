@@ -24,7 +24,7 @@ export class RolebindingListController {
    */
   constructor(rolebindingList, kdRolebindingListResource) {
     this.rolebindingList = rolebindingList;
-
+    console.log(this.rolebindingList)
     /** @export {!angular.$resource} */
     this.rolebindingListResource = kdRolebindingListResource;
   }

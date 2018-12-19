@@ -41,7 +41,7 @@ export class RolebindingCardListController {
    * @export
    */
   getSelectId() {
-    const selectId = 'deployments';
+    const selectId = 'rolebindings';
 
     if (this.rolebindingList !== undefined && this.rolebindingListResource !== undefined) {
       return selectId;

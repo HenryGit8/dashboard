@@ -27,11 +27,17 @@ limitations under the License.
     <kd-nav-item class="kd-nav-item"
                  state="{{::$ctrl.states.persistentVolume}}">[[Persistent Volumes|Persistent Volumes menu entry.]]</kd-nav-item>
     <!-- Enabled dynamically if the rbac is enabled in the cluster. -->
+    <kd-nav-item class="kd-nav-item"
+                 state="{{::$ctrl.states.storageClass}}">[[Storage Classes|Storage Classes menu entry.]]</kd-nav-item>
+  </div>
+  <div class="kd-nav-group">
+    <kd-nav-item class="kd-nav-group-item"
+                 state="{{::$ctrl.states.cluster}}">[[Rbac|Rbac group menu entry.]]</kd-nav-item>
     <kd-role-nav states="$ctrl.states"></kd-role-nav>
     <kd-nav-item class="kd-nav-item"
                  state="{{::$ctrl.states.serviceAccount}}">[[ServiceAccount|serviceAccount menu entry.]]</kd-nav-item>
     <kd-nav-item class="kd-nav-item"
-                 state="{{::$ctrl.states.storageClass}}">[[Storage Classes|Storage Classes menu entry.]]</kd-nav-item>
+                 state="{{::$ctrl.states.rolebinding}}">[[Rolebinding|rolebinding menu entry.]]</kd-nav-item>
   </div>
   <div class="kd-nav-group-divider"></div>
   <kd-namespace-select></kd-namespace-select>
@@ -52,8 +58,6 @@ limitations under the License.
                  state="{{::$ctrl.states.job}}">[[Jobs|Jobs menu entry.]]</kd-nav-item>
     <kd-nav-item class="kd-nav-item"
                  state="{{::$ctrl.states.pod}}">[[Pods|Pods menu entry.]]</kd-nav-item>
-    <kd-nav-item class="kd-nav-item"
-                 state="{{::$ctrl.states.roleBinding}}">[[RoleBinding|roleBinding menu entry.]]</kd-nav-item>
     <kd-nav-item class="kd-nav-item"
                  state="{{::$ctrl.states.replicaSet}}">[[Replica Sets|Replica Sets entry.]]</kd-nav-item>
     <kd-nav-item class="kd-nav-item"

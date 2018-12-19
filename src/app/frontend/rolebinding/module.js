@@ -49,11 +49,8 @@ export default angular
           persistentvolumeclaimModule.name,
         ])
     .config(stateConfig)
-    .component('kdContainerInfo', containerInfoComponent)
-    .component('kdCreatorInfo', creatorInfoComponent)
     .component('kdRolebindingCard', rolebindingCardComponent)
     .component('kdRolebindingCardList', rolebindingCardListComponent)
     .component('kdRolebindingInfo', rolebindingInfoComponent)
     .factory('kdRolebindingEventsResource', rolebindingEventsResource)
     .factory('kdRolebindingListResource', rolebindingListResource)
-    .factory('kdRolebindingPersistentVolumeClaimsResource', rolebindingPersistentVolumeClaimsResource);

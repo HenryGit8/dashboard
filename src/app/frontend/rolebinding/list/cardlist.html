@@ -102,8 +102,7 @@ limitations under the License.
       [[Name|Label 'Name' which appears as a column label in the table of deployments (deployment list view).]]
     </kd-resource-card-header-column>
     <kd-resource-card-header-column size="small"
-                                    grow="2"
-                                    ng-if="$ctrl.areMultipleNamespacesSelected()">
+                                    grow="1">
       [[Namespace|Label 'Namespace' which appears as a column label in the table of deployments (deployment list view).]]
     </kd-resource-card-header-column>
     <kd-resource-card-header-column size="small"
@@ -112,7 +111,7 @@ limitations under the License.
     </kd-resource-card-header-column>
     <kd-resource-card-header-column size="small"
                                     grow="1">
-      [[Pods|Label 'Pods' which appears as a column label in the table of deployments (deployment list view).]]
+      [[Kind|Label 'Kind' which appears as a column label in the table of deployments (deployment list view).]]
     </kd-resource-card-header-column>
     <kd-resource-card-header-column size="small"
                                     grow="1"
@@ -120,19 +119,15 @@ limitations under the License.
                                     sort-id="$root.SortableProperties.AGE">
       [[Age|Label 'Age' which appears as a column label in the table of deployments (deployment list view).]]
     </kd-resource-card-header-column>
-    <kd-resource-card-header-column size="small"
-                                    grow="2">
-      [[Images|Label 'Images' which appears as a column label in the table of deployments (deployment list view).]]
-    </kd-resource-card-header-column>
-    <kd-resource-card-header-column size="small"
+    <!--<kd-resource-card-header-column size="small"
                                     grow="nogrow">
-    </kd-resource-card-header-column>
+    </kd-resource-card-header-column>-->
   </kd-resource-card-header-columns>
-  <kd-deployment-card dir-paginate="deployment in $ctrl.rolebindingList.deployments | itemsPerPage: default"
-                      deployment="deployment"
+  <kd-rolebinding-card dir-paginate="item in $ctrl.rolebindingList.items | itemsPerPage: default"
+                      rolebinding="item"
                       pagination-id="{{::$ctrl.getSelectId()}}"
                       total-items="$ctrl.rolebindingList.listMeta.totalItems">
-  </kd-deployment-card>
+  </kd-rolebinding-card>
 
   <kd-resource-card-list-footer>
     <kd-resource-card-list-pagination></kd-resource-card-list-pagination>

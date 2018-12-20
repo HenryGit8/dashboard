@@ -46,7 +46,7 @@ class RoleCardController {
 
     }else {
       return this.state_.href(
-        stateName, new StateParams("#nonamespace",this.role.objectMeta.name));
+        stateName, new StateParams("_all",this.role.objectMeta.name));
     }
   }
 }

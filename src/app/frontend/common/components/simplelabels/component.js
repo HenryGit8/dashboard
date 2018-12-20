@@ -66,7 +66,7 @@ export default class SimplelabelsController {
    * @export
    */
   isMoreAvailable() {
-    return Object.keys(this.simplelabels).length > alwaysVisibleSimplelabelsNumber;
+    return false/*Object.keys(this.simplelabels).length > alwaysVisibleSimplelabelsNumber*/;
   }
 
   /**

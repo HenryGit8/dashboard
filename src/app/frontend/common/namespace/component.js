@@ -141,7 +141,7 @@ export class NamespaceSelectController {
    * @private
    */
   shouldShowNamespaceChangeDialog_(toParams) {
-    return toParams && toParams.namespace && toParams.objectNamespace &&
+    return toParams && toParams.namespace && toParams.objectNamespace && toParams.objectNamespace !== '_all' &&
         toParams.namespace !== '_all' && toParams.namespace !== toParams.objectNamespace;
   }
 
@@ -176,7 +176,6 @@ export class NamespaceSelectController {
     } else {
       this.selectedNamespace = DEFAULT_NAMESPACE;
     }
-
     if (this.shouldShowNamespaceChangeDialog_(toParams)) {
       this.handleNamespaceChangeDialog_(toParams);
     }

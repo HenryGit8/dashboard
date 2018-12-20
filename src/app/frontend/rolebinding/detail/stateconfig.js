@@ -78,7 +78,7 @@ export function rolebindingOldReplicaSetsResource($resource) {
  * @ngInject
  */
 export function getRolebindingDetailResource($resource, $stateParams) {
-  if($stateParams.objectNamespace !== "#nonamespace"){
+  if($stateParams.objectNamespace !== "_all"){
     return $resource(`api/v1/_raw/rolebinding/namespace/${$stateParams.objectNamespace}/name/${$stateParams.objectName}`);
     //return $resource(`api/v1/rolebinding/${$stateParams.objectNamespace}/${$stateParams.objectName}`);
   }else {

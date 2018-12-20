@@ -49,14 +49,15 @@ limitations under the License.
   </kd-info-card-section>-->
 
   <div ng-repeat="rule in ::$ctrl.role.rules">
-    <kd-info-card-entry title="[[Verbs|Verbs for the role on the role details page.]]">
-      <kd-simple-labels simplelabels="::rule.verbs"></kd-simple-labels>
-    </kd-info-card-entry>
+    <div class="kd-card-group-divider"></div>
     <kd-info-card-entry title="[[ApiGroups|ApiGroups for the role on the role details page.]]">
       <kd-simple-labels simplelabels="::rule.apiGroups"></kd-simple-labels>
     </kd-info-card-entry>
     <kd-info-card-entry title="[[Resources|Resources for the role on the role details page.]]">
       <kd-simple-labels simplelabels="::rule.resources"></kd-simple-labels>
+    </kd-info-card-entry>
+    <kd-info-card-entry title="[[Verbs|Verbs for the role on the role details page.]]">
+      <kd-simple-labels simplelabels="::rule.verbs"></kd-simple-labels>
     </kd-info-card-entry>
   </div>
 </kd-info-card>

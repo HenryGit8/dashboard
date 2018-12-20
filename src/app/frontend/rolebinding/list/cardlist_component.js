@@ -18,9 +18,8 @@
 export class RolebindingCardListController {
   /**
    * @ngInject
-   * @param {!./../../common/namespace/service.NamespaceService} kdNamespaceService
    */
-  constructor(kdNamespaceService) {
+  constructor() {
     /**
      * List of rolebindings. Initialized from the scope.
      */
@@ -28,9 +27,9 @@ export class RolebindingCardListController {
 
     /** @export {!angular.Resource} Initialized from binding. */
     this.rolebindingListResource;
-
-    /** @private {!./../../common/namespace/service.NamespaceService} */
-    this.kdNamespaceService_ = kdNamespaceService;
+/*
+    /!** @private {!./../../common/namespace/service.NamespaceService} *!/
+    this.kdNamespaceService_ = kdNamespaceService;*/
   }
 
   /**
@@ -61,14 +60,14 @@ export class RolebindingCardListController {
     }
     return false;
   }
-
-  /**
+/*
+  /!**
    * @return {boolean}
    * @export
-   */
+   *!/
   areMultipleNamespacesSelected() {
     return this.kdNamespaceService_.areMultipleNamespacesSelected();
-  }
+  }*/
 }
 
 /**

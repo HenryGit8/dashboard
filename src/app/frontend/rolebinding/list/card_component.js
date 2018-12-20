@@ -22,11 +22,9 @@ export class RolebindingCardController {
   /**
    * @ngInject,
    * @param {!ui.router.$state} $state
-   * @param {!../../common/namespace/service.NamespaceService} kdNamespaceService
    */
   constructor($state, kdNamespaceService) {
-    /** @private {!../../common/namespace/service.NamespaceService} */
-    this.kdNamespaceService_ = kdNamespaceService;
+/*    this.kdNamespaceService_ = kdNamespaceService;*/
 
     /** @private {!ui.router.$state} */
     this.state_ = $state;
@@ -37,13 +35,13 @@ export class RolebindingCardController {
     this.rolebinding;
   }
 
-  /**
+ /* /!**
    * @return {boolean}
    * @export
-   */
+   *!/
   areMultipleNamespacesSelected() {
     return this.kdNamespaceService_.areMultipleNamespacesSelected();
-  }
+  }*/
 
 
   /**
@@ -57,7 +55,7 @@ export class RolebindingCardController {
 
     }else {
       return this.state_.href(
-        stateName, new StateParams("#nonamespace",this.rolebinding.objectMeta.name));
+        stateName, new StateParams("_all",this.rolebinding.objectMeta.name));
     }
   }
 

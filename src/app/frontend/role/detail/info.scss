@@ -1,0 +1,7 @@
+@import '../../variables';
+.kd-card-group-divider {
+  border-top: 1px solid $border;
+  margin-bottom: 2 * $baseline-grid;
+  margin-right: 1 * $baseline-grid;
+  margin-top: $baseline-grid;
+}

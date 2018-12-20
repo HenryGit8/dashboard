@@ -15,7 +15,7 @@ limitations under the License.
 -->
 
 <div ng-if="::simplelabelsCtrl.simplelabels">
-  <div ng-repeat="value in ::simplelabelsCtrl.simplelabels"
+  <div ng-repeat="value in ::simplelabelsCtrl.simplelabels track by $index"
        ng-if="simplelabelsCtrl.isVisible($index)"
        class="kd-chips">
     <kd-middle-ellipsis display-string="{{::value}}"

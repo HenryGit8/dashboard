@@ -12,6 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-/** Name of the state. Can be used in, e.g., $state.go method. */
-export const stateName = 'rolelist';
-export const stateNamenoe = 'rolelistnoe';
+@import '../../../variables';
+
+kd-labels {
+  display: block;
+  margin-bottom: -($baseline-grid / 2);
+}

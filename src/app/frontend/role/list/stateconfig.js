@@ -48,6 +48,26 @@ export const config = {
     },
   },
 };
+export const confignoe = {
+  url: stateUrl,
+  parent: parentState,
+  resolve: {
+    'roleList': resolveRoleList,
+  },
+  data: {
+    [breadcrumbsConfig]: {
+      'label': i18n.MSG_BREADCRUMBS_ROLES_LABEL,
+      'parent': parentStateName,
+    },
+  },
+  views: {
+    '': {
+      controller: RoleListController,
+      controllerAs: '$ctrl',
+      templateUrl: 'role/list/listnoe.html',
+    },
+  },
+};
 
 /**
  * @param {!angular.$resource} $resource

@@ -22,6 +22,7 @@ class RoleCardListController {
     this.roleList;
     /** @export {!angular.Resource} - Initialized from binding. */
     this.roleListResource;
+    this.ise;
   }
 
   /**
@@ -53,9 +54,11 @@ export const roleCardListComponent = {
     'zerostate': '?kdEmptyListText',
   },
   controller: RoleCardListController,
+  controllerAs: '$cardListCtrl',
   bindings: {
     'roleList': '<',
     'roleListResource': '<',
+    'ise':'<',
   },
   templateUrl: 'role/list/cardlist.html',
 };

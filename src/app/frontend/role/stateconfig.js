@@ -13,8 +13,8 @@
 // limitations under the License.
 
 import {stateName as chromeStateName} from '../chrome/state';
-import {stateName as listState} from './list/state';
-import {config as listConfig} from './list/stateconfig';
+import {stateName as listState,stateNamenoe as listStatenoe} from './list/state';
+import {config as listConfig,confignoe as confignoe} from './list/stateconfig';
 import {stateName} from './state';
 import {stateName as detailState} from "./detail/state";
 import {config as detailConfig} from "./detail/stateconfig";
@@ -26,7 +26,7 @@ import {config as detailConfig} from "./detail/stateconfig";
  */
 export default function stateConfig($stateProvider) {
   $stateProvider.state(stateName, config).state(listState, listConfig)
-  .state(detailState, detailConfig);
+  .state(detailState, detailConfig).state(listStatenoe, confignoe);
 }
 
 /**

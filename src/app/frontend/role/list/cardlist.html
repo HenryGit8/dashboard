@@ -16,9 +16,9 @@ limitations under the License.
 
 <kd-resource-card-list selectable="false"
                        with-statuses="false"
-                       select-id="{{::$ctrl.getSelectId()}}"
-                       list="$ctrl.roleList"
-                       list-resource="$ctrl.roleListResource">
+                       select-id="{{::$cardListCtrl.getSelectId()}}"
+                       list="$cardListCtrl.roleList"
+                       list-resource="$cardListCtrl.roleListResource">
   <kd-resource-card-list-header>
     <kd-resource-card-list-title ng-transclude="header">
       [[Roles|Label which appears above the list of such objects.]]
@@ -26,12 +26,12 @@ limitations under the License.
     <kd-resource-card-list-filter></kd-resource-card-list-filter>
   </kd-resource-card-list-header>
 
-  <kd-zero-state ng-if="!$ctrl.roleList.listMeta.totalItems">
+  <kd-zero-state ng-if="!$cardListCtrl.roleList.listMeta.totalItems">
     <kd-zero-state-text ng-transclude="zerostate">
       [[There are no Roles to display.|Text for role card list zerostate.]]
     </kd-zero-state-text>
   </kd-zero-state>
-  <kd-resource-card-header-columns ng-show="$ctrl.roleList.listMeta.totalItems">
+  <kd-resource-card-header-columns ng-show="$cardListCtrl.roleList.listMeta.totalItems">
     <kd-resource-card-header-column size="small"
                                     grow="2"
                                     sortable="true"
@@ -53,13 +53,14 @@ limitations under the License.
       [[Age|Label 'Age' which appears as a column label in the table of ingresses (ingress list view).]]
     </kd-resource-card-header-column>
     <kd-resource-card-header-column size="small"
-                                    grow="nogrow">
+                                    grow="nogrow" ng-if="$cardListCtrl.ise">
     </kd-resource-card-header-column>
   </kd-resource-card-header-columns>
-  <kd-role-card dir-paginate="role in $ctrl.roleList.items | itemsPerPage: default"
+  <kd-role-card dir-paginate="role in $cardListCtrl.roleList.items | itemsPerPage: default"
                 role="role"
-                pagination-id="{{::$ctrl.getSelectId()}}"
-                total-items="::$ctrl.roleList.listMeta.totalItems">
+                pagination-id="{{::$cardListCtrl.getSelectId()}}"
+                total-items="::$cardListCtrl.roleList.listMeta.totalItems"
+                ise="::$cardListCtrl.ise">
   </kd-role-card>
 
   <kd-resource-card-list-footer>

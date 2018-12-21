@@ -29,12 +29,20 @@ export class EditRoleController {
    * @ngInject
    */
   constructor(
-      $mdDialog, $http, clipboard, $mdToast, resourceKindName, resourceUrl, localizerService) {
+      $mdDialog, $http, clipboard, $mdToast, resourceKindName, resourceUrl, localizerService, $scope) {
     /** @export {string} */
     this.resourceKindName = resourceKindName;
     /** @export {string} */
     this.data = '';
+    this.scope= $scope;
     this.dataObj;
+    this.rules;
+    this.be = false;
+    this.resources = ["namespaces","nodes","persistentvolumeclaims","pods","services","horizontalpodautoscalers",
+      "resourcequotas","replicationcontrollers","limitranges","persistentvolumes","endpoints","secrets","configmaps",
+    "daemonsets","deployments","replicasets","statefulsets","cronjobs","jobs","pods/exec","pods/log"]
+    this.apiGroups = ["extensions","apps","batch","autoscaling","rbac.authorization.k8s.io"]
+    this.verbs = ["get","list","watch","patch","update","create","delete","proxy"]
     this.conf = [];
     /** @private {string} */
     this.resourceUrl = resourceUrl;
@@ -61,6 +69,7 @@ export class EditRoleController {
         (/** !angular.$http.Response<Object>*/ response) => {
           this.data = angular.toJson(response.data, true);
           this.dataObj = response.data;
+          this.rules = this.dataObj.rules;
         },
         (err) => {
           this.showMessage_(`Error: ${this.localizerService_.localize(err.data)}`);
@@ -71,6 +80,7 @@ export class EditRoleController {
    * @export
    */
   update() {
+    this.dataObj.rules = this.rules;
     return this.http_.put(this.resourceUrl, angular.toJson(this.dataObj, true))
         .then(this.mdDialog_.hide, this.mdDialog_.cancel);
   }
@@ -104,17 +114,24 @@ export class EditRoleController {
     this.mdDialog_.cancel();
   }
 
+  delete(index){
+    console.info("delete"+index)
+    this.rules.splice(index,1);
+    console.info(this.rules)
+    this.scope.$apply();
+  }
+
   add(){
     console.info("add")
-    let newobj = this.dataObj
     let obj = new Object();
     let empAry = new Array();
+    empAry.push("4424")
     obj.verbs = empAry;
     obj.apiGroups = empAry;
     obj.resources = empAry;
-    newobj.rules.push(obj);
-    this.dataObj = newobj;
-    console.info(this.dataObj)
+    this.rules.push(obj);
+    console.info(this.rules)
+    this.scope.$apply();
   }
 
   /**
@@ -135,53 +152,52 @@ export class EditRoleController {
   }
 
   checkN(vname,index,val){
+    /*console.info("checkN")
+    console.info(vname+" "+index+" "+val)*/
     if(vname === "verbs"){
-      return this.dataObj.rules[index].verbs.indexOf(val) > -1
+      return this.rules[index].verbs.indexOf(val) > -1
     }else if (vname === "apiGroups"){
-      return this.dataObj.rules[index].apiGroups.indexOf(val) > -1
+      return this.rules[index].apiGroups.indexOf(val) > -1
     } else if (vname === "resources"){
-      return this.dataObj.rules[index].resources.indexOf(val) > -1
+      return this.rules[index].resources.indexOf(val) > -1
     }
     return false;
   }
 
   changN(vname,index,val){
-    let newobj = this.dataObj;
     console.info(vname+" "+index+" "+val);
     console.info("change")
-    console.info(this.dataObj);
+    console.info(this.rules);
     if(vname === "verbs"){
-      let ind = newobj.rules[index].verbs.indexOf(val);
-      console.info(newobj)
+      let ind = this.rules[index].verbs.indexOf(val);
+      console.info(this.rules)
       console.info(ind)
       if(ind === -1){
-        newobj.rules[index].verbs.push(val);
+        this.rules[index].verbs.push(val);
       }else {
         console.info("verbs have")
-        newobj.rules[index].verbs.splice(ind, 1)
+        this.rules[index].verbs.splice(ind, 1)
       }
     }else if (vname === "apiGroups"){
-      let ind = newobj.rules[index].apiGroups.indexOf(val);
-      console.info(newobj)
+      let ind = this.rules[index].apiGroups.indexOf(val);
+      console.info(this.rules)
       console.info(ind)
       if(ind === -1){
-        newobj.rules[index].apiGroups.push(val);
+        this.rules[index].apiGroups.push(val);
       }else {
         console.info("apiGroups have")
-        newobj.rules[index].apiGroups.splice(ind, 1)
+        this.rules[index].apiGroups.splice(ind, 1)
       }
     } else if (vname === "resources"){
-      let ind = newobj.rules[index].resources.indexOf(val);
-      console.info(newobj)
+      let ind = this.rules[index].resources.indexOf(val);
+      console.info(this.rules)
       console.info(ind)
       if(ind === -1){
-        newobj.rules[index].resources.push(val);
+        this.rules[index].resources.push(val);
       }else {
         console.info("resources have")
-        newobj.rules[index].resources.splice(ind, 1)
+        this.rules[index].resources.splice(ind, 1)
       }
     }
-    this.dataObj = newobj;
-    console.info(this.dataObj);
   }
 }

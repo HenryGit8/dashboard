@@ -43,7 +43,7 @@ export default class RoleInfoController {
       deferred.resolve();
     })
     .catch((err) => {
-      this.editErrorCallback(err);
+      //this.editErrorCallback(err);
       deferred.reject(err);
     });
     return deferred.promise;

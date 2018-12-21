@@ -30,6 +30,7 @@ class RoleCardController {
      * @export {!backendApi.Role}
      */
     this.role;
+    this.ise;
 
     /** @private {!ui.router.$state} */
     this.state_ = $state;
@@ -57,7 +58,9 @@ class RoleCardController {
 export const roleCardComponent = {
   bindings: {
     'role': '=',
+    'ise':'<',
   },
   controller: RoleCardController,
+  controllerAs: '$cardCtrl',
   templateUrl: 'role/list/card.html',
 };

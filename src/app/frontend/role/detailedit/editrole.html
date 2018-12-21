@@ -17,6 +17,7 @@ limitations under the License.
 <md-dialog aria-label="[[Edit a {{::$ctrl.resourceKindName}}|Title for a delete resource dialog.]]"
            layout="column"
            class="kd-edit-dialog">
+
   <md-dialog-content layout-padding
                      class="kd-json-edit-dialog-content">
     <h4 class="md-title">[[Edit a {{::$ctrl.resourceKindName}}|Title for a delete resource dialog.]]</h4>
@@ -24,76 +25,49 @@ limitations under the License.
                    class="kd-edit-dialog-text-input">
     </kd-text-input>-->
     <div class="cont">
-      <div ng-repeat="value in ::$ctrl.dataObj.rules track by $index">
-        <!--<div layout="row">
-          <md-input-container>
-            <label>Name</label>
-            <input type="text" ng-model="::$ctrl.dataObj.metadata.name">
-          </md-input-container>
-        </div>-->
+      <div ng-if="::$ctrl.rules" ng-repeat="value in ::$ctrl.rules track by $index">
         <div class="kd-card-bg-group-divider"></div>
         <label class="maeg">ApiGroups</label>
         <div class="kd-card-group-divider"></div>
-        <div layout="row">
+        <div>
           <md-checkbox ng-model="::$ctrl.checkN('apiGroups',$index,'')" aria-label="-"  ng-click="::$ctrl.changN('apiGroups',$index,'')">-</md-checkbox>
-          <md-checkbox ng-model="::$ctrl.checkN('apiGroups',$index,'extensions')" aria-label="extensions"  ng-click="::$ctrl.changN('apiGroups',$index,'extensions')">extensions</md-checkbox>
-          <md-checkbox ng-model="::$ctrl.checkN('apiGroups',$index,'apps')" aria-label="apps"  ng-click="::$ctrl.changN('apiGroups',$index,'apps')">apps</md-checkbox>
-          <md-checkbox ng-model="::$ctrl.checkN('apiGroups',$index,'batch')" aria-label="batch"  ng-click="::$ctrl.changN('apiGroups',$index,'batch')">batch</md-checkbox>
-          <md-checkbox ng-model="::$ctrl.checkN('apiGroups',$index,'autoscaling')" aria-label="autoscaling"  ng-click="::$ctrl.changN('apiGroups',$index,'autoscaling')">autoscaling</md-checkbox>
-          <md-checkbox ng-model="::$ctrl.checkN('apiGroups',$index,'rbac.authorization.k8s.io')" aria-label="rbac.authorization.k8s.io"  ng-click="::$ctrl.changN('apiGroups',$index,'rbac.authorization.k8s.io')">rbac.authorization.k8s.io</md-checkbox>
+          <md-checkbox  ng-repeat="value in ::$ctrl.apiGroups track by $index" ng-model="::$ctrl.checkN('apiGroups',$parent.$index,value)"
+                        aria-label="::$ctrl.apiGroups[$index]"
+                        ng-click="::$ctrl.changN('apiGroups',$parent.$index,value)">{{::value}}
+          </md-checkbox>
         </div>
         <label class="maeg">Resources</label>
         <div class="kd-card-group-divider"></div>
-        <div layout="row">
-          <md-checkbox ng-model="::$ctrl.checkN('resources',$index,'namespaces')" aria-label="namespaces"  ng-click="::$ctrl.changN('resources',$index,'namespaces')">namespaces</md-checkbox>
-          <md-checkbox ng-model="::$ctrl.checkN('resources',$index,'nodes')" aria-label="nodes"  ng-click="::$ctrl.changN('resources',$index,'nodes')">nodes</md-checkbox>
-          <md-checkbox ng-model="::$ctrl.checkN('resources',$index,'persistentvolumeclaims')" aria-label="persistentvolumeclaims"  ng-click="::$ctrl.changN('resources',$index,'persistentvolumeclaims')">persistentvolumeclaims</md-checkbox>
-          <md-checkbox ng-model="::$ctrl.checkN('resources',$index,'pods')" aria-label="pods"  ng-click="::$ctrl.changN('resources',$index,'pods')">pods</md-checkbox>
-          <md-checkbox ng-model="::$ctrl.checkN('resources',$index,'services')" aria-label="services"  ng-click="::$ctrl.changN('resources',$index,'services')">services</md-checkbox>
-          <md-checkbox ng-model="::$ctrl.checkN('resources',$index,'horizontalpodautoscalers')" aria-label="horizontalpodautoscalers"  ng-click="::$ctrl.changN('resources',$index,'horizontalpodautoscalers')">horizontalpodautoscalers</md-checkbox>
-          <md-checkbox ng-model="::$ctrl.checkN('resources',$index,'resourcequotas')" aria-label="resourcequotas"  ng-click="::$ctrl.changN('resources',$index,'resourcequotas')">resourcequotas</md-checkbox>
-        </div>
-        <div layout="row">
-          <md-checkbox ng-model="::$ctrl.checkN('resources',$index,'replicationcontrollers')" aria-label="replicationcontrollers"  ng-click="::$ctrl.changN('resources',$index,'replicationcontrollers')">replicationcontrollers</md-checkbox>
-          <md-checkbox ng-model="::$ctrl.checkN('resources',$index,'limitranges')" aria-label="limitranges"  ng-click="::$ctrl.changN('resources',$index,'limitranges')">limitranges</md-checkbox>
-          <md-checkbox ng-model="::$ctrl.checkN('resources',$index,'persistentvolumes')" aria-label="persistentvolumes"  ng-click="::$ctrl.changN('resources',$index,'persistentvolumes')">persistentvolumes</md-checkbox>
-          <md-checkbox ng-model="::$ctrl.checkN('resources',$index,'endpoints')" aria-label="endpoints"  ng-click="::$ctrl.changN('resources',$index,'endpoints')">endpoints</md-checkbox>
-          <md-checkbox ng-model="::$ctrl.checkN('resources',$index,'secrets')" aria-label="secrets"  ng-click="::$ctrl.changN('resources',$index,'secrets')">secrets</md-checkbox>
-          <md-checkbox ng-model="::$ctrl.checkN('resources',$index,'configmaps')" aria-label="configmaps"  ng-click="::$ctrl.changN('resources',$index,'configmaps')">configmaps</md-checkbox>
-        </div>
-        <div layout="row">
-          <md-checkbox ng-model="::$ctrl.checkN('resources',$index,'daemonsets')" aria-label="daemonsets"  ng-click="::$ctrl.changN('resources',$index,'daemonsets')">daemonsets</md-checkbox>
-          <md-checkbox ng-model="::$ctrl.checkN('resources',$index,'deployments')" aria-label="deployments"  ng-click="::$ctrl.changN('resources',$index,'deployments')">deployments</md-checkbox>
-          <md-checkbox ng-model="::$ctrl.checkN('resources',$index,'replicasets')" aria-label="replicasets"  ng-click="::$ctrl.changN('resources',$index,'replicasets')">replicasets</md-checkbox>
-          <md-checkbox ng-model="::$ctrl.checkN('resources',$index,'statefulsets')" aria-label="statefulsets"  ng-click="::$ctrl.changN('resources',$index,'statefulsets')">statefulsets</md-checkbox>
-          <md-checkbox ng-model="::$ctrl.checkN('resources',$index,'cronjobs')" aria-label="cronjobs"  ng-click="::$ctrl.changN('resources',$index,'cronjobs')">cronjobs</md-checkbox>
-          <md-checkbox ng-model="::$ctrl.checkN('resources',$index,'jobs')" aria-label="jobs"  ng-click="::$ctrl.changN('resources',$index,'jobs')">jobs</md-checkbox>
-          <md-checkbox ng-model="::$ctrl.checkN('resources',$index,'pods/exec')" aria-label="pods/exec"  ng-click="::$ctrl.changN('resources',$index,'pods/exec')">pods/exec</md-checkbox>
-          <md-checkbox ng-model="::$ctrl.checkN('resources',$index,'pods/log')" aria-label="pods/log"  ng-click="::$ctrl.changN('resources',$index,'pods/log')">pods/log</md-checkbox>
+        <div>
+            <md-checkbox  ng-repeat="value in ::$ctrl.resources track by $index" ng-model="::$ctrl.checkN('resources',$parent.$index,value)"
+                         aria-label="::$ctrl.resources[$index]"
+                         ng-click="::$ctrl.changN('resources',$parent.$index,value)">{{::value}}
+            </md-checkbox>
         </div>
         <label class="maeg">Verbs</label>
         <div class="kd-card-group-divider"></div>
-        <div layout="row">
-          <md-checkbox ng-model="::$ctrl.checkN('verbs',$index,'get')" aria-label="get"  ng-click="::$ctrl.changN('apiGroups',$index,'get')">get</md-checkbox>
-          <md-checkbox ng-model="::$ctrl.checkN('verbs',$index,'list')" aria-label="list"  ng-click="::$ctrl.changN('apiGroups',$index,'list')">list</md-checkbox>
-          <md-checkbox ng-model="::$ctrl.checkN('verbs',$index,'watch')" aria-label="watch"  ng-click="::$ctrl.changN('apiGroups',$index,'watch')">watch</md-checkbox>
-          <md-checkbox ng-model="::$ctrl.checkN('verbs',$index,'patch')" aria-label="patch"  ng-click="::$ctrl.changN('apiGroups',$index,'patch')">patch</md-checkbox>
-          <md-checkbox ng-model="::$ctrl.checkN('verbs',$index,'update')" aria-label="update"  ng-click="::$ctrl.changN('apiGroups',$index,'update')">update</md-checkbox>
-          <md-checkbox ng-model="::$ctrl.checkN('verbs',$index,'create')" aria-label="create"  ng-click="::$ctrl.changN('apiGroups',$index,'create')">create</md-checkbox>
-          <md-checkbox ng-model="::$ctrl.checkN('verbs',$index,'delete')" aria-label="delete"  ng-click="::$ctrl.changN('apiGroups',$index,'delete')">delete</md-checkbox>
-          <md-checkbox ng-model="::$ctrl.checkN('verbs',$index,'proxy')" aria-label="proxy"  ng-click="::$ctrl.changN('apiGroups',$index,'proxy')">proxy</md-checkbox>
+        <div>
+          <md-checkbox  ng-repeat="value in ::$ctrl.verbs track by $index" ng-model="::$ctrl.checkN('verbs',$parent.$index,value)"
+                        aria-label="::$ctrl.verbs[$index]"
+                        ng-click="::$ctrl.changN('verbs',$parent.$index,value)">{{::value}}
+          </md-checkbox>
         </div>
+
+        <md-button class="md-primary kd-cancel-btn"
+                   ng-click="$ctrl.delete($index)">
+          [[Delete this|Label for Add button.]]
+        </md-button>
       </div>
 
-      <md-button class="md-primary kd-cancel-btn"
-                 ng-click="$ctrl.add()">
-        [[Add One|Label for Add button.]]
-      </md-button>
     </div>
     <md-dialog-actions>
       <md-button class="md-primary kd-cancel-btn"
                  ng-click="$ctrl.cancel()">
         [[Cancel|Label for cancel button.]]
+      </md-button>
+      <md-button class="md-primary kd-cancel-btn"
+                 ng-click="$ctrl.add()">
+        [[Add One|Label for Add button.]]
       </md-button>
       <md-button class="md-primary kd-delete-btn"
                  ng-click="$ctrl.update()">

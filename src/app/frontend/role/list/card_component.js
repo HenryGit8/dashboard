@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import {stateName} from "../../role/detail/state";
+import {stateName} from "../detail/state";
 import {StateParams} from "../../common/resource/resourcedetail";
 
 /**

@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import showMyEditDialog from '../detailedit/editrole_dialog';
 /**
  * @final
  */
@@ -19,13 +20,52 @@ export default class RoleInfoController {
   /**
    * Constructs rolebinding info object.
    */
-  constructor() {
+  constructor($mdDialog, $q,$state) {
+    this.mdDialog_ = $mdDialog;
+    /** @private {!angular.$q} */
+    this.q_ = $q;
     /**
      * Rolebinding details. Initialized from the scope.
      * @export {!backendApi.RolebindingDetail}
      */
     this.role;
+    this.state = $state;
   }
+
+  thisShowEditDialog() {
+    let ro = this.role;
+    ro.kind = this.role.kind.toLowerCase();
+    let deferred = this.q_.defer();
+
+    showMyEditDialog(this.mdDialog_, "Role", getRawResourceUrl(ro, this.role.metadata),this.state)
+    .then(() => {
+      this.state.reload();
+      deferred.resolve();
+    })
+    .catch((err) => {
+      this.editErrorCallback(err);
+      deferred.reject(err);
+    });
+    return deferred.promise;
+
+  }
+
+}
+
+
+/**
+ * Create a string with the resource url for the given resource
+ * @param {!backendApi.TypeMeta} typeMeta
+ * @param {!backendApi.ObjectMeta} objectMeta
+ * @return {string}
+ */
+function getRawResourceUrl(typeMeta, objectMeta) {
+  let resourceUrl = `api/v1/_raw/${typeMeta.kind}`;
+  if (objectMeta.namespace !== undefined) {
+    resourceUrl += `/namespace/${objectMeta.namespace}`;
+  }
+  resourceUrl += `/name/${objectMeta.name}`;
+  return resourceUrl;
 }
 
 /**

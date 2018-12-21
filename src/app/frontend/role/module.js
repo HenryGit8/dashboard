@@ -23,7 +23,7 @@ import stateConfig from './stateconfig';
 import configMapModule from "../configmap/module";
 import eventsModule from "../events/module";
 import namespaceModule from "../common/namespace/module";
-import {roleInfoComponent} from "../role/detail/info_component";
+import {roleInfoComponent} from "./detail/info_component";
 
 /**
  * Angular module for the Role list view.
@@ -35,6 +35,7 @@ export default angular
           'ngMaterial',
           'ngResource',
           'ui.router',
+          "angular-clipboard",
           filtersModule.name,
           componentsModule.name,
           configMapModule.name,

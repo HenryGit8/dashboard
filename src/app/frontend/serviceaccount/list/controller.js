@@ -13,19 +13,19 @@
 // limitations under the License.
 
 /**
- * Controller for the namespace list view.
- *
  * @final
  */
 export class ServiceAccountListController {
   /**
-   * @param {!angular.$resource} kdServiceAccountListResource
+   * @param {!backendApi.ServiceAccountList} serviceAccountList
+   * @param {!angular.Resource} kdServiceAccountListResource
    * @ngInject
    */
-  constructor(namespaceList, kdServiceAccountListResource) {
-    this.namespaceList = namespaceList;
+  constructor(serviceAccountList, kdServiceAccountListResource) {
+    /** @export {!backendApi.ServiceAccountList} */
+    this.serviceAccountList = serviceAccountList;
 
-    /** @export {!angular.$resource} */
-    this.namespaceListResource = kdServiceAccountListResource;
+    /** @export {!angular.Resource} */
+    this.serviceAccountListResource = kdServiceAccountListResource;
   }
 }

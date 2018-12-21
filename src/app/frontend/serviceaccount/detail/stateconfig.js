@@ -14,15 +14,15 @@
 
 import {actionbarViewName, stateName as chromeStateName} from '../../chrome/state';
 import {breadcrumbsConfig} from '../../common/components/breadcrumbs/service';
-import {appendDetailParamsToUrl} from '../../common/resource/globalresourcedetail';
-import {stateName as namespaceList} from '../list/state';
-import {stateName as parentState, stateUrl} from '../state';
+import {appendDetailParamsToUrl} from '../../common/resource/resourcedetail';
 
+import {stateName as secretList} from '../list/state';
+import {stateName as parentState, stateUrl} from '../state';
 import {ActionBarController} from './actionbar_controller';
-import {NamespaceDetailController} from './controller';
+import {SecretDetailController} from './controller';
 
 /**
- * Config state object for the Namespace detail view.
+ * Config state object for the Secret detail view.
  *
  * @type {!ui.router.StateConfig}
  */
@@ -30,53 +30,44 @@ export const config = {
   url: appendDetailParamsToUrl(stateUrl),
   parent: parentState,
   resolve: {
-    'namespaceDetailResource': getNamespaceDetailResource,
-    'namespaceDetail': getNamespaceDetail,
+    'secretDetailResource': getSecretDetailResource,
+    'secretDetail': getSecretDetail,
   },
   data: {
     [breadcrumbsConfig]: {
       'label': '{{$stateParams.objectName}}',
-      'parent': namespaceList,
+      'parent': secretList,
     },
   },
   views: {
     '': {
-      controller: NamespaceDetailController,
-      controllerAs: 'ctrl',
-      templateUrl: 'namespace/detail/detail.html',
+      controller: SecretDetailController,
+      controllerAs: '$ctrl',
+      templateUrl: 'secret/detail/detail.html',
     },
     [`${actionbarViewName}@${chromeStateName}`]: {
       controller: ActionBarController,
       controllerAs: '$ctrl',
-      templateUrl: 'namespace/detail/actionbar.html',
+      templateUrl: 'secret/detail/actionbar.html',
     },
   },
 };
 
 /**
+ * @param {!./../../common/resource/resourcedetail.StateParams} $stateParams
  * @param {!angular.$resource} $resource
  * @return {!angular.Resource}
  * @ngInject
  */
-export function serviceAccountEventsResource($resource) {
-  return $resource('api/v1/namespace/:name/event');
+export function getSecretDetailResource($resource, $stateParams) {
+  return $resource(`api/v1/secret/${$stateParams.objectNamespace}/${$stateParams.objectName}`);
 }
 
 /**
- * @param {!./../../common/resource/globalresourcedetail.GlobalStateParams} $stateParams
- * @param {!angular.$resource} $resource
- * @return {!angular.Resource}
- * @ngInject
- */
-export function getNamespaceDetailResource($resource, $stateParams) {
-  return $resource(`api/v1/namespace/${$stateParams.objectName}`);
-}
-
-/**
- * @param {!angular.Resource} namespaceDetailResource
+ * @param {!angular.Resource} secretDetailResource
  * @return {!angular.$q.Promise}
  * @ngInject
  */
-export function getNamespaceDetail(namespaceDetailResource) {
-  return namespaceDetailResource.get().$promise;
+export function getSecretDetail(secretDetailResource) {
+  return secretDetailResource.get().$promise;
 }

@@ -14,49 +14,43 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-<kd-resource-card-list selectable="false"
-                       with-statuses="true"
+<kd-resource-card-list ng-if="::$ctrl.saList.secrets"
                        select-id="{{::$ctrl.getSelectId()}}"
-                       list="$ctrl.serviceAccountList"
-                       list-resource="$ctrl.serviceAccountListResource">
+                       list="$ctrl.saList"
+                       list-resource="$ctrl.saListResource">
   <kd-resource-card-list-header>
     <kd-resource-card-list-title ng-transclude="header">
-      [[serviceAccount|Label which appears above the list of such objects.]]
+      [[ServiceAccounts|Label which appears above the list of such objects.]]
     </kd-resource-card-list-title>
     <kd-resource-card-list-filter></kd-resource-card-list-filter>
   </kd-resource-card-list-header>
 
-  <kd-zero-state ng-if="!$ctrl.serviceAccountList.listMeta.totalItems">
+  <kd-zero-state ng-if="!$ctrl.saList.listMeta.totalItems">
     <kd-zero-state-text ng-transclude="zerostate">
-      [[There are no serviceAccountList to display.|Text for serviceAccount card list zerostate.]]
+      [[There are no ServiceAccounts to display.|Text for serviceAccount card list zerostate.]]
     </kd-zero-state-text>
   </kd-zero-state>
-  <kd-resource-card-header-columns ng-show="$ctrl.serviceAccountList.listMeta.totalItems">
+  <kd-resource-card-header-columns ng-show="$ctrl.saList.listMeta.totalItems">
     <kd-resource-card-header-column size="small"
                                     grow="2"
                                     sortable="true"
                                     sort-id="$root.SortableProperties.NAME">
-      [[Name|Label 'Name' which appears as a column label in the table of namespaces (namespace list view).]]
+      [[Name|Label 'Name' which appears as a column label in the table of serviceAccounts (serviceAccount list view).]]
     </kd-resource-card-header-column>
     <kd-resource-card-header-column size="small"
-                                    grow="2">
-      [[Labels|Label 'Labels' which appears as a column label in the table of namespaces (namespace list view).]]
-    </kd-resource-card-header-column>
-    <kd-resource-card-header-column size="small"
-                                    grow="1">
-      [[Status|Label 'Status' which appears as a column label in the table of namespaces (namespace list view).]]
-    </kd-resource-card-header-column>
-    <kd-resource-card-header-column size="small"
-                                    grow="1"
+                                    grow="2"
                                     sortable="true"
                                     sort-id="$root.SortableProperties.AGE">
-      [[Age|Label 'Age' which appears as a column label in the table of namespaces (namespace list view).]]
+      [[Age|Label 'Age' which appears as a column label in the table of serviceAccounts (serviceAccount list view).]]
+    </kd-resource-card-header-column>
+    <kd-resource-card-header-column size="small"
+                                    grow="nogrow">
     </kd-resource-card-header-column>
   </kd-resource-card-header-columns>
-  <kd-service-account-card dir-paginate="sa in $ctrl.serviceAccountList.namespaces | itemsPerPage: default"
-                     pagination-id="{{::$ctrl.getSelectId()}}"
-                     serviceAccount="sa"
-                     total-items="::$ctrl.serviceAccountList.listMeta.totalItems">
+  <kd-service-account-card dir-paginate="serviceAccount in $ctrl.saList.secrets | itemsPerPage: default"
+                  pagination-id="{{::$ctrl.getSelectId()}}"
+                  service-account="serviceAccount"
+                  total-items="::$ctrl.saList.listMeta.totalItems">
   </kd-service-account-card>
 
   <kd-resource-card-list-footer>

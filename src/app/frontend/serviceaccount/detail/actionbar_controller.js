@@ -17,11 +17,11 @@
  */
 export class ActionBarController {
   /**
-   * @param {!backendApi.NamespaceDetail} namespaceDetail
+   * @param {!backendApi.SecretDetail} secretDetail
    * @ngInject
    */
-  constructor(namespaceDetail) {
-    /** @export {!backendApi.NamespaceDetail} */
-    this.details = namespaceDetail;
+  constructor(secretDetail) {
+    /** @export {!backendApi.SecretDetail} */
+    this.details = secretDetail;
   }
 }

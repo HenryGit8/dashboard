@@ -14,25 +14,47 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-<kd-warnings warnings="::ctrl.namespaceDetail.errors"></kd-warnings>
+<div layout="column">
+  <kd-secret-info secret="::$ctrl.secretDetail"></kd-secret-info>
+  <kd-info-card>
+    <kd-info-card-header>[[Data|Secrets info details section data.]]</kd-info-card-header>
+    <kd-info-card-section>
+      <div layout="row"
+           class="kd-info-card-entry kd-secret-detail-row"
+           ng-repeat="(key, value) in ::$ctrl.secretDetail.data">
+        <div flex="nogrow"
+             style="position: relative">
+          <md-button ng-click="isActive = !isActive"
+                     class="md-icon-button">
+            <md-icon md-font-library="material-icons"
+                     ng-if="isActive">
+              visibility_off
+            </md-icon>
+            <md-icon md-font-library="material-icons"
+                     ng-if="!isActive">
+              visibility
+            </md-icon>
+            <md-tooltip md-delay="500"
+                        md-autohide
+                        ng-if="!isActive">
+              [[Show secret content|Tooltip label for showing secret content]]
+            </md-tooltip>
+            <md-tooltip md-delay="500"
+                        md-autohide
+                        ng-if="isActive">
+              [[Hide secret content|Tooltip label for hiding secret content]]
+            </md-tooltip>
+          </md-button>
 
-<kd-namespace-info link="::ctrl.getNamespaceOverviewHref()"
-                   namespace="::ctrl.namespaceDetail"
-                   button-text="::ctrl.buttonText">
-</kd-namespace-info>
-
-<div ng-if="ctrl.namespaceDetail.resourceQuotaList.items">
-  <div ng-repeat="resourceQuota in ::ctrl.namespaceDetail.resourceQuotaList.items">
-    <kd-resource-quota-detail resource-quota-detail="::resourceQuota"></kd-resource-quota-detail>
-  </div>
+          {{::key}}:
+        </div>
+        <div class="kd-info-card-entry-content">
+          <kd-toggle-hidden-text active="isActive"
+                                 placeholder="[[{{::$ctrl.formatDataValue(value).length}} bytes | Secrets info details section bytes.]]"
+                                 text="{{::$ctrl.formatDataValue(value)}}">
+          </kd-toggle-hidden-text>
+        </div>
+      </div>
+    </kd-info-card-section>
+  </kd-info-card>
 </div>
-
-<kd-content-card ng-if="ctrl.namespaceDetail.resourceLimits.length">
-  <kd-content>
-    <kd-resource-limits resource-limits="ctrl.namespaceDetail.resourceLimits"></kd-resource-limits>
-  </kd-content>
-</kd-content-card>
-
-<kd-event-card-list event-list="::ctrl.namespaceDetail.eventList"
-                    event-list-resource="::ctrl.eventListResource">
-</kd-event-card-list>

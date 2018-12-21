@@ -12,59 +12,52 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import {GlobalStateParams} from '../../common/resource/globalresourcedetail';
-import {stateName} from '../../namespace/detail/state';
+import {StateParams} from '../../common/resource/resourcedetail';
+import {stateName} from '../../serviceaccount/detail/state';
 
-/**
- * Controller for the namespace card.
- *
- * @final
- */
 class ServiceAccountCardController {
   /**
+   * @param {!./../../common/namespace/service.NamespaceService} kdNamespaceService
    * @param {!ui.router.$state} $state
    * @ngInject
    */
-  constructor($state) {
-    /**
-     * Initialized from the scope.
-     * @export {!backendApi.Namespace}
-     */
+  constructor($state, kdNamespaceService) {
+    /** @export {!backendApi.ServiceAccount} ServiceAccount initialised from a bindig. */
     this.serviceAccount;
+
 
     /** @private {!ui.router.$state} */
     this.state_ = $state;
-  }
 
-  /**
-   * Returns true if namespace is in active phase.
-   * @return {boolean}
-   * @export
-   */
-  isActive() {
-    return this.serviceAccount.phase === 'Active';
-  }
-
-  /**
-   * Returns true if namespace is in terminating phase.
-   * @return {boolean}
-   * @export
-   */
-  isTerminating() {
-    return this.serviceAccount.phase === 'Terminating';
+    /** @private {!./../../common/namespace/service.NamespaceService} */
+    this.kdNamespaceService_ = kdNamespaceService;
   }
 
   /**
    * @return {string}
    * @export
    */
-  getNamespaceDetailHref() {
-    return this.state_.href(stateName, new GlobalStateParams(this.serviceAccount.objectMeta.name));
+  getServiceAccountDetailHref() {
+    return this.state_.href(
+        stateName, new StateParams(this.serviceAccount.objectMeta.namespace, this.serviceAccount.objectMeta.name));
+  }
+
+  /**
+   * @return {boolean}
+   * @export
+   */
+  areMultipleNamespacesSelected() {
+    return this.kdNamespaceService_.areMultipleNamespacesSelected();
+  }
+
+  reName(name){
+    var str_before = name.split("-token")[0];
+    return str_before;
   }
 }
 
 /**
- * @return {!angular.Component}
+ * @type {!angular.Component}
  */
 export const serviceAccountCardComponent = {
   bindings: {

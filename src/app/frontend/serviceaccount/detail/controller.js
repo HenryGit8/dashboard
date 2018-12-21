@@ -15,17 +15,26 @@
 /**
  * @final
  */
-export class NamespaceDetailController {
+export class SecretDetailController {
   /**
-   * @param {!backendApi.NamespaceDetail} namespaceDetail
-   * @param {!angular.Resource} kdNamespaceEventsResource
+   * @param {!backendApi.SecretDetail} secretDetail
+   * @param {!angular.$window} $window
    * @ngInject
    */
-  constructor(namespaceDetail, kdNamespaceEventsResource) {
-    /** @export {!backendApi.NamespaceDetail} */
-    this.namespaceDetail = namespaceDetail;
+  constructor(secretDetail, $window) {
+    /** @export {!backendApi.SecretDetail} */
+    this.secretDetail = secretDetail;
 
-    /** @export {!angular.Resource} */
-    this.eventListResource = kdNamespaceEventsResource;
+    /** @private {!angular.$window} */
+    this.window_ = $window;
+  }
+
+  /**
+   * @param {string} valueB64
+   * @return {string}
+   * @export
+   */
+  formatDataValue(valueB64) {
+    return this.window_.atob(valueB64);
   }
 }

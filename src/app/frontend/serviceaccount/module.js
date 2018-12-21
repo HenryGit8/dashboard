@@ -15,10 +15,10 @@
 import chromeModule from '../chrome/module';
 import componentsModule from '../common/components/module';
 import filtersModule from '../common/filters/module';
+import namespaceModule from '../common/namespace/module';
 import eventsModule from '../events/module';
 
 import {serviceAccountInfoComponent} from './detail/info_component';
-import {serviceAccountEventsResource} from './detail/stateconfig';
 import {serviceAccountCardComponent} from './list/card_component';
 import {serviceAccountCardListComponent} from './list/cardlist_component';
 import {serviceAccountListResource} from './list/stateconfig';
@@ -38,10 +38,10 @@ export default angular
           componentsModule.name,
           eventsModule.name,
           filtersModule.name,
+          namespaceModule.name,
         ])
     .config(stateConfig)
     .component('kdServiceAccountCard', serviceAccountCardComponent)
     .component('kdServiceAccountCardList', serviceAccountCardListComponent)
     .component('kdServiceAccountInfo', serviceAccountInfoComponent)
-    .factory('kdServiceAccountEventsResource', serviceAccountEventsResource)
     .factory('kdServiceAccountListResource', serviceAccountListResource);

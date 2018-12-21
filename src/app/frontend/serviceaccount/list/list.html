@@ -14,12 +14,13 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-<kd-warnings warnings="::$ctrl.namespaceList.errors"></kd-warnings>
+<kd-warnings warnings="::$ctrl.serviceAccountList.errors"></kd-warnings>
 
 <kd-content-card>
   <kd-content>
-    <kd-namespace-card-list namespace-list="$ctrl.namespaceList"
-                            namespace-list-resource="$ctrl.namespaceListResource">
-    </kd-namespace-card-list>
+    <kd-service-account-card-list sa-list="$ctrl.serviceAccountList"
+                         with-statuses="false"
+                         sa-list-resource="$ctrl.serviceAccountListResource">
+    </kd-service-account-card-list>
   </kd-content>
 </kd-content-card>

@@ -15,17 +15,22 @@
 /**
  * @final
  */
-export class NamespaceCardListController {
-  /** @export */
-  constructor() {
-    /** @export {!backendApi.NamespaceList} - Initialized from binding. */
-    this.serviceAccountList;
+export class ServiceAccountCardListController {
+  /**
+   * @param {!./../../common/namespace/service.NamespaceService} kdNamespaceService
+   * @ngInject
+   */
+  constructor(kdNamespaceService) {
+    /** @private {!./../../common/namespace/service.NamespaceService} */
+    this.kdNamespaceService_ = kdNamespaceService;
+    /** @export {!backendApi.ServiceAccountList} - Initialized from binding. */
+    this.saList;
     /** @export {!angular.Resource} - Initialized from binding. */
-    this.serviceAccountListResource;
+    this.saListResource;
   }
 
   /**
-   * Returns select id string or undefined if podList or podListResource are not defined.
+   * Returns select id string or undefined if list or list resource are not defined.
    * It is needed to enable/disable data select support (pagination, sorting) for particular list.
    *
    * @return {string}
@@ -34,16 +39,26 @@ export class NamespaceCardListController {
   getSelectId() {
     const selectId = 'serviceAccounts';
 
-    if (this.serviceAccountList !== undefined && this.serviceAccountListResource !== undefined) {
+    if (this.saList !== undefined && this.saListResource !== undefined) {
       return selectId;
     }
 
     return '';
   }
+
+  /**
+   * @return {boolean}
+   * @export
+   */
+  areMultipleNamespacesSelected() {
+    return this.kdNamespaceService_.areMultipleNamespacesSelected();
+  }
 }
 
 /**
- * @return {!angular.Component}
+ * Definition object for the component that displays serviceAccount list card.
+ *
+ * @type {!angular.Component}
  */
 export const serviceAccountCardListComponent = {
   transclude: {
@@ -52,10 +67,11 @@ export const serviceAccountCardListComponent = {
     // Optional zerostate content that is shown when there are zero items.
     'zerostate': '?kdEmptyListText',
   },
-  controller: NamespaceCardListController,
-  bindings: {
-    'serviceAccountList': '<',
-    'serviceAccountListResource': '<',
-  },
   templateUrl: 'serviceaccount/list/cardlist.html',
+  controller: ServiceAccountCardListController,
+  bindings: {
+    /** {!backendApi.ServiceAccountList} */
+    'saList': '<',
+    'saListResource': '<',
+  },
 };

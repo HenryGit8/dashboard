@@ -12,10 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import {stateName as parentStateName} from '../../cluster/state';
 import {breadcrumbsConfig} from '../../common/components/breadcrumbs/service';
+import {stateName as parentStateName} from '../../config/state';
 
-import {stateName as parentState, stateUrl} from '../state';
+import {stateName as parentState, stateUrl} from './../state';
 import {ServiceAccountListController} from './controller';
 
 /**
@@ -23,7 +23,7 @@ import {ServiceAccountListController} from './controller';
  */
 const i18n = {
   /** @type {string} @desc Label 'ServiceAccounts' that appears as a breadcrumbs on the action bar. */
-  MSG_BREADCRUMBS_NAMESPACES_LABEL: goog.getMsg('ServiceAccount'),
+  MSG_BREADCRUMBS_SECRETS_LABEL: goog.getMsg('ServiceAccounts'),
 };
 
 /**
@@ -35,11 +35,11 @@ export const config = {
   url: stateUrl,
   parent: parentState,
   resolve: {
-    'serviceAccountist': resolveServiceAccountList,
+    'serviceAccountList': resolveServiceAccountList,
   },
   data: {
     [breadcrumbsConfig]: {
-      'label': i18n.MSG_BREADCRUMBS_NAMESPACES_LABEL,
+      'label': i18n.MSG_BREADCRUMBS_SECRETS_LABEL,
       'parent': parentStateName,
     },
   },
@@ -58,16 +58,19 @@ export const config = {
  * @ngInject
  */
 export function serviceAccountListResource($resource) {
-  return $resource('api/v1/serviceaccount');
+  return $resource('api/v1/secret/:namespace');
 }
 
 /**
  * @param {!angular.Resource} kdServiceAccountListResource
+ * @param {!./../../chrome/state.StateParams} $stateParams
  * @param {!./../../common/dataselect/service.DataSelectService} kdDataSelectService
  * @return {!angular.$q.Promise}
  * @ngInject
  */
 export function resolveServiceAccountList(kdServiceAccountListResource, kdDataSelectService) {
-  let query = kdDataSelectService.getDefaultResourceQuery('');
+  let query = kdDataSelectService.getDefaultResourceQuery("kube-public");
+  //query.filterBy = encodeURIComponent("type,service-account-token")
+  console.info(query)
   return kdServiceAccountListResource.get(query).$promise;
 }

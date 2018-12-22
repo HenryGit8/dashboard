@@ -15,7 +15,7 @@
 import {stateName as parentStateName} from '../../cluster/state';
 import {breadcrumbsConfig} from '../../common/components/breadcrumbs/service';
 
-import {stateName as parentState, stateUrl} from '../state';
+import {stateName as parentState, stateUrl,statenoeUrl} from '../state';
 import {RoleListController} from './controller';
 
 const i18n = {
@@ -49,7 +49,7 @@ export const config = {
   },
 };
 export const confignoe = {
-  url: stateUrl,
+  url: statenoeUrl,
   parent: parentState,
   resolve: {
     'roleList': resolveRoleList,

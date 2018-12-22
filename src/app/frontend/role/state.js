@@ -17,3 +17,4 @@ export const stateName = 'role';
 
 /** Absolute URL of the state. */
 export const stateUrl = '/role';
+export const statenoeUrl = '/rolenoe';

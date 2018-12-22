@@ -37,6 +37,7 @@ export class EditRoleController {
     this.scope= $scope;
     this.dataObj;
     this.rules;
+    this.databool;
     this.be = false;
     this.resources = ["namespaces","nodes","persistentvolumeclaims","pods","services","horizontalpodautoscalers",
       "resourcequotas","replicationcontrollers","limitranges","persistentvolumes","endpoints","secrets","configmaps",
@@ -60,6 +61,42 @@ export class EditRoleController {
     this.init_();
   }
 
+  updatebool(){
+    let api = this.apiGroups;
+    let res = this.resources;
+    let ver = this.verbs;
+    let dapi = new Array();
+    let dres = new Array();
+    let dver = new Array();
+    dapi = this.dataObj.apiGroups;
+    dres = this.dataObj.resources;
+    dver = this.dataObj.verbs;
+    let apire = [];
+    let resre = [];
+    let verre = [];
+    for (var j=0;j<api.length;j++)
+    {
+      let apiname = api[j];
+      apire[j] = dapi.indexOf(apiname) > -1
+    }
+
+    for (var j=0;j<res.length;j++)
+    {
+      let apiname = res[j];
+      resre[j] = dres.indexOf(apiname) > -1
+    }
+
+    for (var j=0;j<ver.length;j++)
+    {
+      let apiname = ver[j];
+      verre[j] = dver.indexOf(apiname) > -1
+    }
+    this.databool.apiGroups = apire;
+    this.databool.resources = resre;
+    this.databool.verbs = verre;
+    console.info(this.databool)
+  }
+
   /**
    * @private
    */
@@ -70,6 +107,7 @@ export class EditRoleController {
           this.data = angular.toJson(response.data, true);
           this.dataObj = response.data;
           this.rules = this.dataObj.rules;
+          this.updatebool();
         },
         (err) => {
           this.showMessage_(`Error: ${this.localizerService_.localize(err.data)}`);
@@ -201,3 +239,8 @@ export class EditRoleController {
     }
   }
 }
+Array.prototype.S=String.fromCharCode(2);
+Array.prototype.in_array=function(e){
+  var r=new RegExp(this.S+e+this.S);
+  return (r.test(this.S+this.join(this.S)+this.S));
+};

@@ -15,15 +15,15 @@
 /**
  * @final
  */
-export class SecretDetailController {
+export class ServiceAccountDetailController {
   /**
-   * @param {!backendApi.SecretDetail} secretDetail
+   * @param {!backendApi.ServiceAccountDetail} serviceAccountDetail
    * @param {!angular.$window} $window
    * @ngInject
    */
-  constructor(secretDetail, $window) {
-    /** @export {!backendApi.SecretDetail} */
-    this.secretDetail = secretDetail;
+  constructor(serviceAccountDetail, $window) {
+    /** @export {!backendApi.ServiceAccountDetail} */
+    this.serviceAccountDetail = serviceAccountDetail;
 
     /** @private {!angular.$window} */
     this.window_ = $window;

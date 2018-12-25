@@ -12,17 +12,22 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import showAddDialog from "../add/addrole_dialog";
+
 /**
  * @final
  */
 class RoleCardListController {
   /** @export */
-  constructor() {
+  constructor($state,$q,$mdDialog) {
+    this.mdDialog_ = $mdDialog;
+    this.q_ = $q;
     /** @export {!backendApi.RoleList} - Initialized from binding. */
     this.roleList;
     /** @export {!angular.Resource} - Initialized from binding. */
     this.roleListResource;
     this.ise;
+    this.state = $state;
   }
 
   /**
@@ -40,6 +45,36 @@ class RoleCardListController {
     }
 
     return '';
+  }
+
+  addRoleDialog() {
+    let deferred = this.q_.defer();
+
+    showAddDialog(this.mdDialog_, "Role")
+    .then(() => {
+      this.state.reload();
+      deferred.resolve();
+    })
+    .catch((err) => {
+      //this.editErrorCallback(err);
+      deferred.reject(err);
+    });
+    return deferred.promise;
+
+  }
+  addClusterRoleDialog() {
+    let deferred = this.q_.defer();
+    showAddDialog(this.mdDialog_, "ClusterRole")
+    .then(() => {
+      this.state.reload();
+      deferred.resolve();
+    })
+    .catch((err) => {
+      //this.editErrorCallback(err);
+      deferred.reject(err);
+    });
+    return deferred.promise;
+
   }
 }
 

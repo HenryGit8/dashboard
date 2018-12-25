@@ -41,6 +41,7 @@ export default angular
           configMapModule.name,
           eventsModule.name,
           chromeModule.name,
+          namespaceModule.name,
         ])
     .config(stateConfig)
     .component('kdRoleCardList', roleCardListComponent)

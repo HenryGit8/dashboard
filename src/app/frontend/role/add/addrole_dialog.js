@@ -12,26 +12,22 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-/**
- * @final
- */
-export default class ServiceAccountInfoController {
-  constructor() {
-    /** @export {!backendApi.ServiceAccountDetail} Initialized from the scope. */
-    this.serviceAccount;
-  }
-}
+import {AddRoleController} from './addrole_controller';
 
 /**
- * Definition object for the component that displays serviceAccount info.
- *
- * @return {!angular.Component}
+ * @param {!md.$dialog} mdDialog
+ * @param {string} resourceKindName
+ * @param {string} resourceUrl
+ * @return {!angular.$q.Promise}
  */
-export const serviceAccountInfoComponent = {
-  controller: ServiceAccountInfoController,
-  templateUrl: 'serviceaccount/detail/info.html',
-  bindings: {
-    /** {!backendApi.ServiceAccountDetail} */
-    'serviceAccount': '=',
-  },
-};
+export default function showAddDialog(mdDialog, resourceKindName) {
+  return mdDialog.show({
+    controller: AddRoleController,
+    controllerAs: '$ctrl',
+    clickOutsideToClose: true,
+    templateUrl: 'role/add/addrole.html',
+    locals: {
+      'resourceKindName': resourceKindName
+    },
+  });
+}

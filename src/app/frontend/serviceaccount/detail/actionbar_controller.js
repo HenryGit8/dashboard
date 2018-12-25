@@ -17,11 +17,11 @@
  */
 export class ActionBarController {
   /**
-   * @param {!backendApi.SecretDetail} secretDetail
+   * @param {!backendApi.SecretDetail} serviceAccountDetail
    * @ngInject
    */
-  constructor(secretDetail) {
+  constructor(serviceAccountDetail) {
     /** @export {!backendApi.SecretDetail} */
-    this.details = secretDetail;
+    this.details = serviceAccountDetail;
   }
 }

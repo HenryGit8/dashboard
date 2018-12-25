@@ -16,6 +16,7 @@ import {namespaceParam} from '../../chrome/state';
 import {stateName as loginState} from '../../login/state';
 
 import {DEFAULT_NAMESPACE, namespaceSelectComponent} from './component';
+import {simpleSelectComponent} from './spcomponent';
 import {NamespaceService} from './service';
 
 /**
@@ -30,6 +31,7 @@ export default angular
           'ui.router',
         ])
     .component('kdNamespaceSelect', namespaceSelectComponent)
+    .component('kdSimpleSelect', simpleSelectComponent)
     .service('kdNamespaceService', NamespaceService)
     .run(ensureNamespaceParamPresent);
 

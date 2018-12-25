@@ -14,15 +14,37 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-<md-dialog aria-label="[[Edit a {{::$ctrl.resourceKindName}}|Title for a delete resource dialog.]]"
+<md-dialog aria-label="[[Add a {{::$ctrl.resourceKindName}}|Title for a delete resource dialog.]]"
            layout="column"
            class="kd-edit-dialog">
   <md-dialog-content layout-padding
                      class="kd-json-edit-dialog-content">
-    <h4 class="md-title">[[Edit a {{::$ctrl.resourceKindName}}|Title for a delete resource dialog.]]</h4>
+    <h4 class="md-title">[[Add a {{::$ctrl.resourceKindName}}|Title for a delete resource dialog.]]</h4>
+    <!--<kd-text-input input-data="$ctrl.data"
+                   class="kd-edit-dialog-text-input">
+    </kd-text-input>-->
     <div class="cont">
+      <md-input-container>
+        <label>name</label>
+        <input type="text" ng-model="::$ctrl.dataObj.metadata.name">
+      </md-input-container>
+      <md-input-container ng-if="::$ctrl.resourceKindName == 'Role'" >
+        <label>namespace</label>
+        <md-select ng-model="$ctrl.dataObj.metadata.namespace"
+                   md-on-open="$ctrl.loadNamespacesIfNeeded()"
+                   class="kd-namespace-select"
+                   aria-label="[[Selector for namespaces|Text describing what namespace selector is]]"
+                   md-container-class="kd-namespace-select-container"
+                   md-selected-text="$ctrl.formatNamespace()">
+          <md-option ng-value="namespace"
+                     ng-repeat="namespace in $ctrl.namespaces | filter:$ctrl.namespaceInput">
+            {{::namespace}}
+          </md-option>
+        </md-select>
+        <div class="md-errors-spacer"></div>
+      </md-input-container>
+      <!--<kd-namespace-select></kd-namespace-select>-->
       <div ng-if="databool" ng-repeat="value in databool track by $index">
-        <div class="kd-card-bg-group-divider"></div>
         <label class="maeg">ApiGroups</label>
         <div class="kd-card-group-divider"></div>
         <div>
@@ -42,10 +64,11 @@ limitations under the License.
                        aria-label="::verb">{{::verb}}</md-checkbox>
         </div>
 
-        <md-button class="md-primary kd-cancel-btn"
+        <md-button ng-if="databool.length > 1" class="md-primary kd-cancel-btn"
                    ng-click="$ctrl.delete($index)">
           [[Delete this|Label for Add button.]]
         </md-button>
+        <div ng-if="$index+1 < databool.length" class="kd-card-bg-group-divider"></div>
       </div>
 
     </div>
@@ -59,8 +82,8 @@ limitations under the License.
         [[Add One|Label for Add button.]]
       </md-button>
       <md-button class="md-primary kd-delete-btn"
-                 ng-click="$ctrl.update()">
-        [[Update|Label for update button.]]
+                 ng-click="$ctrl.commit()">
+        [[Commit|Label for commit button.]]
       </md-button>
     </md-dialog-actions>
   </md-dialog-content>

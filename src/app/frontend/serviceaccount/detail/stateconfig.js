@@ -16,13 +16,13 @@ import {actionbarViewName, stateName as chromeStateName} from '../../chrome/stat
 import {breadcrumbsConfig} from '../../common/components/breadcrumbs/service';
 import {appendDetailParamsToUrl} from '../../common/resource/resourcedetail';
 
-import {stateName as secretList} from '../list/state';
+import {stateName as serviceAccountList} from '../list/state';
 import {stateName as parentState, stateUrl} from '../state';
 import {ActionBarController} from './actionbar_controller';
-import {SecretDetailController} from './controller';
+import {ServiceAccountDetailController} from './controller';
 
 /**
- * Config state object for the Secret detail view.
+ * Config state object for the ServiceAccount detail view.
  *
  * @type {!ui.router.StateConfig}
  */
@@ -30,25 +30,25 @@ export const config = {
   url: appendDetailParamsToUrl(stateUrl),
   parent: parentState,
   resolve: {
-    'secretDetailResource': getSecretDetailResource,
-    'secretDetail': getSecretDetail,
+    'serviceAccountDetailResource': getServiceAccountDetailResource,
+    'serviceAccountDetail': getServiceAccountDetail,
   },
   data: {
     [breadcrumbsConfig]: {
       'label': '{{$stateParams.objectName}}',
-      'parent': secretList,
+      'parent': serviceAccountList,
     },
   },
   views: {
     '': {
-      controller: SecretDetailController,
+      controller: ServiceAccountDetailController,
       controllerAs: '$ctrl',
-      templateUrl: 'secret/detail/detail.html',
+      templateUrl: 'serviceaccount/detail/detail.html',
     },
     [`${actionbarViewName}@${chromeStateName}`]: {
       controller: ActionBarController,
       controllerAs: '$ctrl',
-      templateUrl: 'secret/detail/actionbar.html',
+      templateUrl: 'serviceaccount/detail/actionbar.html',
     },
   },
 };
@@ -59,15 +59,15 @@ export const config = {
  * @return {!angular.Resource}
  * @ngInject
  */
-export function getSecretDetailResource($resource, $stateParams) {
+export function getServiceAccountDetailResource($resource, $stateParams) {
   return $resource(`api/v1/secret/${$stateParams.objectNamespace}/${$stateParams.objectName}`);
 }
 
 /**
- * @param {!angular.Resource} secretDetailResource
+ * @param {!angular.Resource} serviceAccountDetailResource
  * @return {!angular.$q.Promise}
  * @ngInject
  */
-export function getSecretDetail(secretDetailResource) {
-  return secretDetailResource.get().$promise;
+export function getServiceAccountDetail(serviceAccountDetailResource) {
+  return serviceAccountDetailResource.get().$promise;
 }

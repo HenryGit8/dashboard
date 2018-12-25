@@ -64,6 +64,14 @@ limitations under the License.
   </kd-role-card>
 
   <kd-resource-card-list-footer>
+    <md-button class="md-primary kd-cancel-btn"
+               ng-click="::$cardListCtrl.addRoleDialog()">
+      [[Create Role|Label for Add button.]]
+    </md-button>
+    <md-button class="md-primary kd-cancel-btn"
+               ng-click="::$cardListCtrl.addClusterRoleDialog()">
+      [[Create ClusterRole|Label for Add button.]]
+    </md-button>
     <kd-resource-card-list-pagination></kd-resource-card-list-pagination>
   </kd-resource-card-list-footer>
 </kd-resource-card-list>

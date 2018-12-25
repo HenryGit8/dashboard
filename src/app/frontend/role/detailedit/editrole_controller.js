@@ -36,13 +36,14 @@ export class EditRoleController {
     this.data = '';
     this.scope= $scope;
     this.dataObj;
-    this.rules;
-    this.databool;
+    this.scope.rules;
+    this.scope.databool = [];
     this.be = false;
     this.resources = ["namespaces","nodes","persistentvolumeclaims","pods","services","horizontalpodautoscalers",
       "resourcequotas","replicationcontrollers","limitranges","persistentvolumes","endpoints","secrets","configmaps",
     "daemonsets","deployments","replicasets","statefulsets","cronjobs","jobs","pods/exec","pods/log"]
-    this.apiGroups = ["extensions","apps","batch","autoscaling","rbac.authorization.k8s.io"]
+    this.apiGroups = ["","extensions","apps","batch","autoscaling","rbac.authorization.k8s.io"]
+    this.scope.apiGroups=this.apiGroups
     this.verbs = ["get","list","watch","patch","update","create","delete","proxy"]
     this.conf = [];
     /** @private {string} */
@@ -59,42 +60,103 @@ export class EditRoleController {
     this.localizerService_ = localizerService;
 
     this.init_();
+
+    this.scope.existArray = function (array,arrar2) {
+      for (var i = 0; i < array.length; i++) {
+        for (var j = 0; j < arrar2.length; j++) {
+          if (array[i] == arrar2[j]) {
+            return true;
+          }
+        }
+      }
+      return false;
+    }
+    this.scope.click = function(self){
+      console.log(self);
+      console.log($scope.rules);
+    }
   }
 
   updatebool(){
-    let api = this.apiGroups;
-    let res = this.resources;
-    let ver = this.verbs;
-    let dapi = new Array();
-    let dres = new Array();
-    let dver = new Array();
-    dapi = this.dataObj.apiGroups;
-    dres = this.dataObj.resources;
-    dver = this.dataObj.verbs;
-    let apire = [];
-    let resre = [];
-    let verre = [];
-    for (var j=0;j<api.length;j++)
-    {
-      let apiname = api[j];
-      apire[j] = dapi.indexOf(apiname) > -1
+    var newobj = new Array();
+    var api = this.apiGroups;
+    var res = this.resources;
+    var ver = this.verbs;
+    for (var k = 0; k < this.scope.rules.length; k++){
+      var dapi = new Array();
+      var dres = new Array();
+      var dver = new Array();
+      dapi = this.scope.rules[k].apiGroups;
+      dres = this.scope.rules[k].resources;
+      dver = this.scope.rules[k].verbs;
+      var apire = new Array();
+      var resre = new Array();
+      var verre = new Array();
+      for (var j=0;j<api.length;j++)
+      {
+        var apiname = api[j];
+        apire[j] = this.checkArray(dapi, apiname);
+      }
+      console.info(apire)
+      for (var j=0;j<res.length;j++)
+      {
+        var apiname = res[j];
+        resre[j] = this.checkArray(dres, apiname);
+      }
+      for (var j=0;j<ver.length;j++)
+      {
+        var apiname = ver[j];
+        verre[j] = this.checkArray(dver, apiname);
+      }
+      var obj = new Object();
+      obj.apiGroups = apire;
+      obj.resources = resre;
+      obj.verbs = verre;
+      newobj[k] = obj;
     }
+    this.scope.databool = newobj;
+  }
 
-    for (var j=0;j<res.length;j++)
-    {
-      let apiname = res[j];
-      resre[j] = dres.indexOf(apiname) > -1
+  updateData(){
+    let newrules = new Array();
+    var api = this.apiGroups;
+    var res = this.resources;
+    var ver = this.verbs;
+    for (var k = 0; k < this.scope.databool.length; k++){
+      let dapi = this.scope.databool[k].apiGroups;
+      let dres = this.scope.databool[k].resources;
+      let dver = this.scope.databool[k].verbs;
+      var apire = new Array();
+      var resre = new Array();
+      var verre = new Array();
+      for (var j=0;j<api.length;j++)
+      {
+        var name = api[j];
+        if(dapi[j]){
+          apire.push(name);
+        }
+      }
+      for (var j=0;j<res.length;j++)
+      {
+        var name = res[j];
+        if(dres[j]){
+          resre.push(name);
+        }
+      }
+      for (var j=0;j<ver.length;j++)
+      {
+        var name = ver[j];
+        if(dver[j]){
+          verre.push(name);
+        }
+      }
+      var obj = new Object();
+      obj.apiGroups = apire;
+      obj.resources = resre;
+      obj.verbs = verre;
+      newrules[k] = obj;
     }
-
-    for (var j=0;j<ver.length;j++)
-    {
-      let apiname = ver[j];
-      verre[j] = dver.indexOf(apiname) > -1
-    }
-    this.databool.apiGroups = apire;
-    this.databool.resources = resre;
-    this.databool.verbs = verre;
-    console.info(this.databool)
+    this.scope.rules = newrules;
   }
 
   /**
@@ -106,7 +168,7 @@ export class EditRoleController {
         (/** !angular.$http.Response<Object>*/ response) => {
           this.data = angular.toJson(response.data, true);
           this.dataObj = response.data;
-          this.rules = this.dataObj.rules;
+          this.scope.rules = this.dataObj.rules;
           this.updatebool();
         },
         (err) => {
@@ -118,7 +180,8 @@ export class EditRoleController {
    * @export
    */
   update() {
-    this.dataObj.rules = this.rules;
+    this.updateData();
+    this.dataObj.rules = this.scope.rules;
     return this.http_.put(this.resourceUrl, angular.toJson(this.dataObj, true))
         .then(this.mdDialog_.hide, this.mdDialog_.cancel);
   }
@@ -154,22 +217,17 @@ export class EditRoleController {
 
   delete(index){
     console.info("delete"+index)
-    this.rules.splice(index,1);
-    console.info(this.rules)
-    this.scope.$apply();
+    this.scope.databool.splice(index,1);
+    console.info(this.scope.rules)
   }
 
   add(){
-    console.info("add")
     let obj = new Object();
-    let empAry = new Array();
-    empAry.push("4424")
-    obj.verbs = empAry;
-    obj.apiGroups = empAry;
-    obj.resources = empAry;
-    this.rules.push(obj);
-    console.info(this.rules)
-    this.scope.$apply();
+    obj.verbs = new Array();
+    obj.apiGroups = new Array();
+    obj.resources = new Array();
+    this.scope.databool.push(obj);
+    console.info(this.scope.rules)
   }
 
   /**
@@ -189,15 +247,32 @@ export class EditRoleController {
         });
   }
 
+  checkArray(array,e)
+  {
+    console.info("check"+typeof array)
+    let result = false;
+    angular.forEach(array, function (value, key) {
+      console.info(value+" "+e)
+      console.info(value == e)
+      if(value == e){
+        result = true;
+      }
+    })
+    if(result == true){
+      return true;
+    }else {
+      return false;
+    }
+  }
   checkN(vname,index,val){
     /*console.info("checkN")
     console.info(vname+" "+index+" "+val)*/
     if(vname === "verbs"){
-      return this.rules[index].verbs.indexOf(val) > -1
+      return this.scope.rules[index].verbs.indexOf(val) > -1
     }else if (vname === "apiGroups"){
-      return this.rules[index].apiGroups.indexOf(val) > -1
+      return this.scope.rules[index].apiGroups.indexOf(val) > -1
     } else if (vname === "resources"){
-      return this.rules[index].resources.indexOf(val) > -1
+      return this.scope.rules[index].resources.indexOf(val) > -1
     }
     return false;
   }
@@ -205,42 +280,39 @@ export class EditRoleController {
   changN(vname,index,val){
     console.info(vname+" "+index+" "+val);
     console.info("change")
-    console.info(this.rules);
+    console.info(this.scope.rules);
     if(vname === "verbs"){
-      let ind = this.rules[index].verbs.indexOf(val);
-      console.info(this.rules)
+      let ind = this.scope.rules[index].verbs.indexOf(val);
+      console.info(this.scope.rules)
       console.info(ind)
       if(ind === -1){
-        this.rules[index].verbs.push(val);
+        this.scope.rules[index].verbs.push(val);
       }else {
         console.info("verbs have")
-        this.rules[index].verbs.splice(ind, 1)
+        this.scope.rules[index].verbs.splice(ind, 1)
       }
     }else if (vname === "apiGroups"){
-      let ind = this.rules[index].apiGroups.indexOf(val);
-      console.info(this.rules)
+      let ind = this.scope.rules[index].apiGroups.indexOf(val);
+      console.info(this.scope.rules)
       console.info(ind)
       if(ind === -1){
-        this.rules[index].apiGroups.push(val);
+        this.scope.rules[index].apiGroups.push(val);
       }else {
         console.info("apiGroups have")
-        this.rules[index].apiGroups.splice(ind, 1)
+        this.scope.rules[index].apiGroups.splice(ind, 1)
       }
     } else if (vname === "resources"){
-      let ind = this.rules[index].resources.indexOf(val);
-      console.info(this.rules)
+      let ind = this.scope.rules[index].resources.indexOf(val);
+      console.info(this.scope.rules)
       console.info(ind)
       if(ind === -1){
-        this.rules[index].resources.push(val);
+        this.scope.rules[index].resources.push(val);
       }else {
         console.info("resources have")
-        this.rules[index].resources.splice(ind, 1)
+        this.scope.rules[index].resources.splice(ind, 1)
       }
     }
+    console.info(this.scope.rules)
+    //this.updatebool();
   }
 }
-Array.prototype.S=String.fromCharCode(2);
-Array.prototype.in_array=function(e){
-  var r=new RegExp(this.S+e+this.S);
-  return (r.test(this.S+this.join(this.S)+this.S));
-};

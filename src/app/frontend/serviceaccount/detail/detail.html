@@ -15,13 +15,13 @@ limitations under the License.
 -->
 
 <div layout="column">
-  <kd-secret-info secret="::$ctrl.secretDetail"></kd-secret-info>
+  <kd-service-account-info service-account="::$ctrl.serviceAccountDetail"></kd-service-account-info>
   <kd-info-card>
     <kd-info-card-header>[[Data|Secrets info details section data.]]</kd-info-card-header>
     <kd-info-card-section>
       <div layout="row"
-           class="kd-info-card-entry kd-secret-detail-row"
-           ng-repeat="(key, value) in ::$ctrl.secretDetail.data">
+           class="kd-info-card-entry kd-service-account-detail-row"
+           ng-repeat="(key, value) in ::$ctrl.serviceAccountDetail.data">
         <div flex="nogrow"
              style="position: relative">
           <md-button ng-click="isActive = !isActive"
@@ -37,12 +37,12 @@ limitations under the License.
             <md-tooltip md-delay="500"
                         md-autohide
                         ng-if="!isActive">
-              [[Show secret content|Tooltip label for showing secret content]]
+              [[Show serviceAccount content|Tooltip label for showing serviceAccount content]]
             </md-tooltip>
             <md-tooltip md-delay="500"
                         md-autohide
                         ng-if="isActive">
-              [[Hide secret content|Tooltip label for hiding secret content]]
+              [[Hide serviceAccount content|Tooltip label for hiding serviceAccount content]]
             </md-tooltip>
           </md-button>
 

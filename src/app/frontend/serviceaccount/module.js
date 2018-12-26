@@ -21,8 +21,11 @@ import eventsModule from '../events/module';
 import {serviceAccountInfoComponent} from './detail/info_component';
 import {serviceAccountCardComponent} from './list/card_component';
 import {serviceAccountCardListComponent} from './list/cardlist_component';
+import {saRoleCardComponent} from './rolelist/card_component.js';
+import {saRoleCardListComponent} from './rolelist/cardlist_component.js';
 import {serviceAccountListResource} from './list/stateconfig';
 import stateConfig from './stateconfig';
+import errorHandlingModule from "../common/errorhandling/module";
 
 /**
  * Angular module for the ServiceAccount resource.
@@ -38,10 +41,13 @@ export default angular
           componentsModule.name,
           eventsModule.name,
           filtersModule.name,
+          errorHandlingModule.name,
           namespaceModule.name,
         ])
     .config(stateConfig)
     .component('kdServiceAccountCard', serviceAccountCardComponent)
     .component('kdServiceAccountCardList', serviceAccountCardListComponent)
+    .component('kdSaRoleCard', saRoleCardComponent)
+    .component('kdSaRoleListCard', saRoleCardListComponent)
     .component('kdServiceAccountInfo', serviceAccountInfoComponent)
     .factory('kdServiceAccountListResource', serviceAccountListResource);

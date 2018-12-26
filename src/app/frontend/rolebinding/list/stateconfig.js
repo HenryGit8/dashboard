@@ -13,7 +13,7 @@
 // limitations under the License.
 
 import {breadcrumbsConfig} from '../../common/components/breadcrumbs/service';
-import {stateName as workloadsStateName} from '../../workloads/state';
+import {stateName as parentStateName} from '../../cluster/state';
 
 import {stateName as parentState, stateUrl} from '../state';
 import {RolebindingListController} from './controller';
@@ -40,7 +40,7 @@ export const config = {
   data: {
     [breadcrumbsConfig]: {
       'label': i18n.MSG_BREADCRUMBS_PODS_LABEL,
-      'parent': workloadsStateName,
+      'parent': parentStateName,
     },
   },
   views: {

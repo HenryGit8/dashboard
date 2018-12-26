@@ -42,7 +42,7 @@ limitations under the License.
                        aria-label="::verb">{{::verb}}</md-checkbox>
         </div>
 
-        <md-button class="md-primary kd-cancel-btn"
+        <md-button ng-if="databool.length > 1" class="md-primary kd-cancel-btn"
                    ng-click="$ctrl.delete($index)">
           [[Delete this|Label for Add button.]]
         </md-button>

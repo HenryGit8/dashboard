@@ -35,7 +35,7 @@ export const config = {
   },
   data: {
     [breadcrumbsConfig]: {
-      'label': '{{$stateParams.objectName}}',
+      'label': '{{$stateParams.objectName.split("-token")[0]}}',
       'parent': serviceAccountList,
     },
   },

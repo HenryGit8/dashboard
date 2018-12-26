@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import showAddDialog from "../add/addsa_dialog";
+
 /**
  * @final
  */
@@ -20,13 +22,16 @@ export class ServiceAccountCardListController {
    * @param {!./../../common/namespace/service.NamespaceService} kdNamespaceService
    * @ngInject
    */
-  constructor(kdNamespaceService) {
+  constructor(kdNamespaceService,$mdDialog,$state,$q) {
     /** @private {!./../../common/namespace/service.NamespaceService} */
     this.kdNamespaceService_ = kdNamespaceService;
     /** @export {!backendApi.ServiceAccountList} - Initialized from binding. */
     this.saList;
     /** @export {!angular.Resource} - Initialized from binding. */
     this.saListResource;
+    this.mdDialog_ = $mdDialog;
+    this.state = $state;
+    this.q_ = $q;
   }
 
   /**
@@ -52,6 +57,20 @@ export class ServiceAccountCardListController {
    */
   areMultipleNamespacesSelected() {
     return this.kdNamespaceService_.areMultipleNamespacesSelected();
+  }
+
+  addSaDialog() {
+    let deferred = this.q_.defer();
+    showAddDialog(this.mdDialog_, "ServiceAccount")
+    .then(() => {
+      this.state.reload();
+      deferred.resolve();
+    })
+    .catch((err) => {
+      //this.editErrorCallback(err);
+      deferred.reject(err);
+    });
+    return deferred.promise;
   }
 }
 

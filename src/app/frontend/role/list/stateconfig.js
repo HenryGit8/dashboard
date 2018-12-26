@@ -20,7 +20,8 @@ import {RoleListController} from './controller';
 
 const i18n = {
   /** @type {string} @desc Label 'Roles' that appears as a breadcrumbs on the action bar.*/
-  MSG_BREADCRUMBS_ROLES_LABEL: goog.getMsg('Roles'),
+  MSG_BREADCRUMBS_ROLES_EDIT_LABEL: goog.getMsg('Roles Edit'),
+  MSG_BREADCRUMBS_ROLES_VIEW_LABEL: goog.getMsg('Roles View'),
 };
 
 /**
@@ -36,7 +37,7 @@ export const config = {
   },
   data: {
     [breadcrumbsConfig]: {
-      'label': i18n.MSG_BREADCRUMBS_ROLES_LABEL,
+      'label': i18n.MSG_BREADCRUMBS_ROLES_EDIT_LABEL,
       'parent': parentStateName,
     },
   },
@@ -56,7 +57,7 @@ export const confignoe = {
   },
   data: {
     [breadcrumbsConfig]: {
-      'label': i18n.MSG_BREADCRUMBS_ROLES_LABEL,
+      'label': i18n.MSG_BREADCRUMBS_ROLES_VIEW_LABEL,
       'parent': parentStateName,
     },
   },

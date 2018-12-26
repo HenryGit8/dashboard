@@ -24,7 +24,9 @@ export class ServiceAccountDetailController {
   constructor(serviceAccountDetail, $window) {
     /** @export {!backendApi.ServiceAccountDetail} */
     this.serviceAccountDetail = serviceAccountDetail;
-
+    this.name = this.reName(this.serviceAccountDetail.objectMeta.name);
+    this.serviceAccountDetail.objectMeta.secretName = this.serviceAccountDetail.objectMeta.name;
+    this.serviceAccountDetail.objectMeta.name = this.name;
     /** @private {!angular.$window} */
     this.window_ = $window;
   }
@@ -36,5 +38,9 @@ export class ServiceAccountDetailController {
    */
   formatDataValue(valueB64) {
     return this.window_.atob(valueB64);
+  }
+  reName(name){
+    var str_before = name.split("-token")[0];
+    return str_before;
   }
 }

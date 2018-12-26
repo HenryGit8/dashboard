@@ -38,8 +38,13 @@ limitations under the License.
     </kd-resource-card-column>
     <kd-resource-card-column class="kd-row-layout-column kd-icon-column">
       <kd-resource-card-menu>
-        <kd-resource-card-delete-menu-item resource-kind-name="[[ServiceAccount|Label 'ServiceAccount' which appears at the top of the delete dialog, opened from a serviceAccount list page.]]">
-        </kd-resource-card-delete-menu-item>
+        <!--<kd-resource-card-delete-menu-item resource-kind-name="[[ServiceAccount|Label 'ServiceAccount' which appears at the top of the delete dialog, opened from a serviceAccount list page.]]">
+        </kd-resource-card-delete-menu-item>-->
+        <md-menu-item>
+          <md-button ng-click="$ctrl.remove()">
+            [[Delete|Action "Delete" (verb), which appears as a menu item on the cards for kubernetes resources.]]
+          </md-button>
+        </md-menu-item>
         <kd-resource-card-edit-menu-item resource-kind-name="[[ServiceAccount|Label 'ServiceAccount' which appears at the top of the edit dialog, opened from a serviceAccount list page.]]">
         </kd-resource-card-edit-menu-item>
       </kd-resource-card-menu>

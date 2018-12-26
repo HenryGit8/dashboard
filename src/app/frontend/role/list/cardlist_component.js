@@ -60,7 +60,6 @@ class RoleCardListController {
       deferred.reject(err);
     });
     return deferred.promise;
-
   }
   addClusterRoleDialog() {
     let deferred = this.q_.defer();

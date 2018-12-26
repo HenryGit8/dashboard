@@ -23,6 +23,22 @@ limitations under the License.
     <kd-resource-card-list-title ng-transclude="header">
       [[Roles|Label which appears above the list of such objects.]]
     </kd-resource-card-list-title>
+
+    <!--<md-input-container>
+      <label>namespace</label>
+      <md-select ng-model="$cardListCtrl.selectNamespace"
+                 md-on-open="$cardListCtrl.loadNamespacesIfNeeded()"
+                 class="kd-namespace-select"
+                 aria-label="[[Selector for namespaces|Text describing what namespace selector is]]"
+                 md-container-class="kd-namespace-select-container"
+                 md-selected-text="$cardListCtrl.formatNamespace()">
+        <md-option ng-value="namespace"
+                   ng-repeat="namespace in $cardListCtrl.namespaces | filter:$cardListCtrl.namespaceInput">
+          {{::namespace}}
+        </md-option>
+      </md-select>
+      <div class="md-errors-spacer"></div>
+    </md-input-container>-->
     <kd-resource-card-list-filter></kd-resource-card-list-filter>
   </kd-resource-card-list-header>
 
@@ -32,6 +48,9 @@ limitations under the License.
     </kd-zero-state-text>
   </kd-zero-state>
   <kd-resource-card-header-columns ng-show="$cardListCtrl.roleList.listMeta.totalItems">
+    <!--<kd-resource-card-header-column size="small"
+                                    grow="nogrow">
+    </kd-resource-card-header-column>-->
     <kd-resource-card-header-column size="small"
                                     grow="2"
                                     sortable="true"
@@ -46,32 +65,15 @@ limitations under the License.
                                     grow="2">
       [[Namespace|Role list header: namespace.]]
     </kd-resource-card-header-column>
-    <kd-resource-card-header-column size="small"
-                                    grow="1"
-                                    sortable="true"
-                                    sort-id="$root.SortableProperties.AGE">
-      [[Age|Label 'Age' which appears as a column label in the table of ingresses (ingress list view).]]
-    </kd-resource-card-header-column>
-    <kd-resource-card-header-column size="small"
-                                    grow="nogrow" ng-if="$cardListCtrl.ise">
-    </kd-resource-card-header-column>
   </kd-resource-card-header-columns>
-  <kd-role-card dir-paginate="role in $cardListCtrl.roleList.items | itemsPerPage: default"
+  <kd-sa-role-card dir-paginate="role in $cardListCtrl.roleList.items | itemsPerPage: default"
                 role="role"
                 pagination-id="{{::$cardListCtrl.getSelectId()}}"
                 total-items="::$cardListCtrl.roleList.listMeta.totalItems"
-                ise="::$cardListCtrl.ise">
-  </kd-role-card>
+                roles = "::$cardListCtrl.roles" clusterroles="::$cardListCtrl.clusterroles">
+  </kd-sa-role-card>
 
   <kd-resource-card-list-footer>
-    <md-button ng-if="$cardListCtrl.ise" class="md-primary kd-cancel-btn"
-               ng-click="::$cardListCtrl.addRoleDialog()">
-      [[Create Role|Label for Add button.]]
-    </md-button>
-    <md-button ng-if="$cardListCtrl.ise" class="md-primary kd-cancel-btn"
-               ng-click="::$cardListCtrl.addClusterRoleDialog()">
-      [[Create ClusterRole|Label for Add button.]]
-    </md-button>
     <kd-resource-card-list-pagination></kd-resource-card-list-pagination>
   </kd-resource-card-list-footer>
 </kd-resource-card-list>

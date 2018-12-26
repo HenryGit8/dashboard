@@ -14,69 +14,6 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-<!--<kd-resource-card-list selectable="::$ctrl.selectable"
-                       with-statuses="::$ctrl.withStatuses"
-                       select-id="{{::$ctrl.getSelectId()}}"
-                       list="$ctrl.rolebindingList"
-                       list-resource="$ctrl.rolebindingListResource">
-  <kd-resource-card-list-header>
-    <kd-resource-card-list-title ng-transclude="header">
-      [[Rolebindings|Label which appears above the list of such objects.]]
-    </kd-resource-card-list-title>
-    <kd-resource-card-list-filter></kd-resource-card-list-filter>
-  </kd-resource-card-list-header>
-
-  <kd-zero-state ng-if="!$ctrl.rolebindingList.listMeta.totalItems">
-    <kd-zero-state-text ng-transclude="zerostate">
-      [[There are no Rolebindings to display.|Text for rolebindings card list zerostate.]]
-    </kd-zero-state-text>
-  </kd-zero-state>
-  <kd-resource-card-header-columns ng-show="$ctrl.rolebindingList.listMeta.totalItems">
-    <kd-resource-card-header-column size="small"
-                                    grow="2"
-                                    sortable="true"
-                                    sort-id="$root.SortableProperties.NAME">
-      [[Name|Title of a column]]
-    </kd-resource-card-header-column>
-    <kd-resource-card-header-column size="small"
-                                    grow="2"
-                                    ng-if="$ctrl.areMultipleNamespacesSelected()">
-      [[Namespace|Title of a column]]
-    </kd-resource-card-header-column>
-    <kd-resource-card-header-column size="small"
-                                    grow="1">
-      [[Lable|Title of a column showing name of the node that rolebinding is running at]]
-    </kd-resource-card-header-column>
-    <kd-resource-card-header-column size="small"
-                                    grow="1">
-      [[Pods|Title of a rolebinding status column]]
-    </kd-resource-card-header-column>
-    <kd-resource-card-header-column size="small"
-                                    grow="nogrow"
-                                    sortable="true"
-                                    sort-id="$root.SortableProperties.AGE">
-      [[Age|Title of a column for the age of a rolebinding]]
-    </kd-resource-card-header-column>
-    <kd-resource-card-header-column size="small"
-                                    grow="2">
-      [[Images|Title of a column]]
-    </kd-resource-card-header-column>
-    <kd-resource-card-header-column size="small"
-                                    grow="nogrow">
-    </kd-resource-card-header-column>
-  </kd-resource-card-header-columns>
-  <kd-rolebinding-card dir-paginate="rolebinding in $ctrl.rolebindingList.deployments | itemsPerPage: default"
-               pagination-id="{{::$ctrl.getSelectId()}}"
-               rolebinding="rolebinding"
-               show-metrics="::$ctrl.showMetrics()"
-               total-items="::$ctrl.rolebindingList.listMeta.totalItems">
-  </kd-rolebinding-card>
-
-  <kd-resource-card-list-footer>
-    <kd-resource-card-list-pagination></kd-resource-card-list-pagination>
-  </kd-resource-card-list-footer>
-</kd-resource-card-list>-->
-
 <kd-resource-card-list selectable="false"
                        with-statuses="true"
                        select-id="{{::$ctrl.getSelectId()}}"
@@ -130,6 +67,14 @@ limitations under the License.
   </kd-rolebinding-card>
 
   <kd-resource-card-list-footer>
+    <md-button class="md-primary kd-cancel-btn"
+               ng-click="::$cardListCtrl.addRoleDialog()">
+      [[Create Role|Label for Add button.]]
+    </md-button>
+    <md-button class="md-primary kd-cancel-btn"
+               ng-click="::$cardListCtrl.addClusterRoleDialog()">
+      [[Create ClusterRole|Label for Add button.]]
+    </md-button>
     <kd-resource-card-list-pagination></kd-resource-card-list-pagination>
   </kd-resource-card-list-footer>
 </kd-resource-card-list>

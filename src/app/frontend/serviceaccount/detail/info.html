@@ -24,5 +24,10 @@ limitations under the License.
       </kd-middle-ellipsis>
       <div ng-hide="::$ctrl.serviceAccount.type">-</div>
     </kd-info-card-entry>
+    <kd-info-card-entry title="[[Secret Name|ServiceAccount info details section Secret Name entry.]]">
+      <kd-middle-ellipsis display-string="{{::$ctrl.serviceAccount.objectMeta.secretName}}">
+      </kd-middle-ellipsis>
+      <div ng-hide="::$ctrl.serviceAccount.objectMeta.secretName">-</div>
+    </kd-info-card-entry>
   </kd-info-card-section>
 </kd-info-card>

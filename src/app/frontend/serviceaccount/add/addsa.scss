@@ -15,19 +15,19 @@
 @import '../../variables';
 
 .kd-edit-dialog {
-  @media (max-width: $layout-breakpoint-xs) {
+  @media (max-width: $layout-breakpoint-lg) {
     min-height: $layout-breakpoint-xs * .5;
-    min-width: $layout-breakpoint-xs * .5;
+    min-width: $layout-breakpoint-lg;
   }
 
-  @media (min-width: $layout-breakpoint-xs) {
+  @media (min-width: $layout-breakpoint-lg) {
     min-height: $layout-breakpoint-xs * .8;
-    min-width: $layout-breakpoint-xs * .8;
+    min-width: $layout-breakpoint-lg;
   }
 
   @media (min-width: $layout-breakpoint-lg) {
     min-height: $layout-breakpoint-sm * .52;
-    min-width: $layout-breakpoint-sm * .72;
+    min-width: $layout-breakpoint-lg;
   }
 }
 
@@ -59,6 +59,11 @@
 }
 .maeg{
   margin: 6px;
+}
+
+.redmaeg{
+  margin: 6px;
+  color: red;
 }
 
 .kd-card-group-divider {
@@ -174,10 +179,6 @@ md-select {
       width: 100%;
     }
   }
-}
-.redmaeg{
-  margin: 6px;
-  color: red;
 }
 
 .kd-namespace-select-input-header-border {

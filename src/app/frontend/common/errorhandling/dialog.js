@@ -39,7 +39,7 @@ export class ErrorDialog {
     alert.title(title);
     alert.textContent(text);
     alert.ok(i18n.MSG_ERROR_HANDLING_DIALOG_CLOSE_ACTION);
-    this.mdDialog_.show(alert);
+    return this.mdDialog_.show(alert)
   }
 }
 

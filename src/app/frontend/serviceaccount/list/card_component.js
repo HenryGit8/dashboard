@@ -21,16 +21,69 @@ class ServiceAccountCardController {
    * @param {!ui.router.$state} $state
    * @ngInject
    */
-  constructor($state, kdNamespaceService) {
+  constructor($state, kdNamespaceService, kdResourceVerberService, $resource, kdDataSelectService) {
     /** @export {!backendApi.ServiceAccount} ServiceAccount initialised from a bindig. */
     this.serviceAccount;
 
+    /** @export {string} Initialized from a binding.*/
+    this.resourceKindName = "ServiceAccount";
+
+    /** @private {!./../../resource/verber_service.VerberService} */
+    this.kdResourceVerberService_ = kdResourceVerberService;
 
     /** @private {!ui.router.$state} */
     this.state_ = $state;
 
+    this.kdDataSelectService_ = kdDataSelectService;
+
     /** @private {!./../../common/namespace/service.NamespaceService} */
     this.kdNamespaceService_ = kdNamespaceService;
+
+    /** @private {!angular.$resource} */
+    this.resource_ = $resource;
+
+  }
+
+  remove() {
+    this.kdResourceVerberService_
+    .showDeleteDialog(
+      this.resourceKindName, this.serviceAccount.typeMeta, this.serviceAccount.objectMeta)
+    .then(() => {
+      this.removeRolebinding(this.reName(this.serviceAccount.objectMeta.name));
+      // For now just reload the state. Later we can remove the item in place.
+      this.state_.reload();
+    })
+    .catch((err) => {
+      if (err) {
+        console.log('Error showing delete dialog:', err);
+      }
+    });
+  }
+
+  removeRolebinding(sa){
+    sa = "user--"+sa
+    let rolebindings = resolveRolebindingList(this.resource_, this.kdDataSelectService_,sa);
+    let resuc = this.resource_;
+    rolebindings.then(function(data){
+      console.info(resuc)
+      let items = data.items;
+      console.info(items)
+      console.info(items.length)
+      for (var i=0;i<items.length;i++)
+      {
+        console.info(resuc)
+        let typeMeta = items[i].typeMeta;
+        let objectMeta = items[i].objectMeta;
+        console.info(typeMeta);
+        console.info(objectMeta);
+        deleteRolebinding(resuc,typeMeta, objectMeta)
+        /*let resource = this.resource_(getRawResourceUrl(typeMeta, objectMeta));
+        resource.remove(function () {
+          console.info("delete finish")
+        }, function () {
+        });*/
+      }
+    });
   }
 
   /**
@@ -66,3 +119,46 @@ export const serviceAccountCardComponent = {
   controller: ServiceAccountCardController,
   templateUrl: 'serviceaccount/list/card.html',
 };
+
+/**
+ * Create a string with the resource url for the given resource
+ * @param {!backendApi.TypeMeta} typeMeta
+ * @param {!backendApi.ObjectMeta} objectMeta
+ * @return {string}
+ */
+function getRawResourceUrl(typeMeta, objectMeta) {
+  let resourceUrl = `api/v1/_raw/${typeMeta.kind}`;
+  if (objectMeta.namespace !== undefined) {
+    resourceUrl += `/namespace/${objectMeta.namespace}`;
+  }
+  resourceUrl += `/name/${objectMeta.name}`;
+  return resourceUrl;
+}
+/**
+ * @param {!angular.$resource} $resource
+ * @return {!angular.Resource}
+ * @ngInject
+ */
+export function rolebindingListResource($resource) {
+  return $resource('api/v1/rbac/rolebinding');
+}
+
+/**
+ * @param {!angular.Resource} kdRolebindingListResource
+ * @param {!./../../common/dataselect/service.DataSelectService} kdDataSelectService
+ * @return {!angular.$q.Promise}
+ * @ngInject
+ */
+export function resolveRolebindingList($resource, kdDataSelectService,que) {
+  let dataSelectQuery = kdDataSelectService.getDefaultResourceQuery();
+  dataSelectQuery.filterBy = "name,"+que;
+  console.log(dataSelectQuery)
+  return rolebindingListResource($resource).get(dataSelectQuery).$promise;
+}
+export function deleteRolebinding($resource, typeMeta,objectMeta) {
+  let resource = $resource(getRawResourceUrl(typeMeta, objectMeta));
+  resource.remove(function () {
+    console.info("delete finish")
+  }, function () {
+  });
+}

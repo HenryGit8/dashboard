@@ -21,7 +21,7 @@ import {namespaceParam} from "../../chrome/state";
  *
  * @final
  */
-export class AddRoleController {
+export class AddSaController {
   /**
    * @param {!md.$dialog} $mdDialog
    * @param {!angular.$http} $http
@@ -33,38 +33,30 @@ export class AddRoleController {
    * @ngInject
    */
   constructor(
-      $mdDialog, $log,$http, clipboard, $mdToast, resourceKindName, localizerService,
+      $mdDialog, $log,$http, clipboard, $mdToast, resourceKindName, localizerService,kdDataSelectService,
     $scope,kdCsrfTokenService, kdCsrfTokenHeader,$stateParams, $resource,errorDialog,$q,$state,$mdSelect,$timeout,$document) {
     /** @export {string} */
     this.resourceKindName = resourceKindName;
     this.scope= $scope;
-    this.dataObj;
     /** @private {!angular.$timeout} */
     this.timeout_ = $timeout;
-
     /** @private {!md.$select} */
     this.mdSelect_ = $mdSelect;
-
     /** @private {!angular.$document} */
     this.document_ = $document;
     /** @private {!ui.router.$state} */
     this.state_ = $state;
+    this.defaultNamespace = "kube-public";
     /** @private {!../common/errorhandling/dialog.ErrorDialog} */
     this.errorDialog_ = errorDialog;
-    this.scope.rules = [];
-    this.databool = [];
-    this.be = false;
     this.q_ = $q;
-    this.scope.databool = [];
     /** @private {!angular.$log} */
     this.log_ = $log;
-    this.resources = ["namespaces","nodes","persistentvolumeclaims","pods","services","horizontalpodautoscalers",
-      "resourcequotas","replicationcontrollers","limitranges","persistentvolumes","endpoints","secrets","configmaps",
-    "daemonsets","deployments","replicasets","statefulsets","cronjobs","jobs","pods/exec","pods/log"]
-    this.apiGroups = ["","extensions","apps","batch","autoscaling","rbac.authorization.k8s.io"]
-    this.verbs = ["get","list","watch","patch","update","create","delete","proxy"]
-    this.conf = [];
-    this.namespaces = [];
+    this.serviceAccountObject = new Object();
+    this.roleBindingObjects = new Array();
+    this.clusterRoleBindingObjects = new Array();
+    this.roles = new Array();
+    this.clusterroles  = new Array();
     /** @private {!md.$dialog} */
     this.mdDialog_ = $mdDialog;
     /** @private {!angular.$http} */
@@ -74,7 +66,6 @@ export class AddRoleController {
     /** @private {!md.$toast} */
     this.toast_ = $mdToast;
     this.namespaceInput;
-    this.namespaces = [];
     /** @private {./../errorhandling/localizer_service.LocalizerService} */
     this.localizerService_ = localizerService;
     /** @private {string} */
@@ -85,142 +76,64 @@ export class AddRoleController {
     this.tokenService_ = kdCsrfTokenService;
     /** @private {!../chrome/state.StateParams} */
     this.stateParams_ = $stateParams;
-
     /** @private {boolean} */
     this.isDeployInProgress_ = false;
     this.selectedNamespace;
+    this.selectNamespace = "";
+    this.roleList = resolveRoleList($resource, kdDataSelectService,this.selectNamespace);
+    console.info(this.roleList)
+    this.roleListResource = roleListResource($resource);
+    this.isfinishs = 0;
     this.errormsg = "";
+
     this.init_();
-  }
-
-
-  updatebool(){
-    var newobj = new Array();
-    var api = this.apiGroups;
-    var res = this.resources;
-    var ver = this.verbs;
-    for (var k = 0; k < this.scope.rules.length; k++){
-      var dapi = new Array();
-      var dres = new Array();
-      var dver = new Array();
-      dapi = this.scope.rules[k].apiGroups;
-      dres = this.scope.rules[k].resources;
-      dver = this.scope.rules[k].verbs;
-      var apire = new Array();
-      var resre = new Array();
-      var verre = new Array();
-      for (var j=0;j<api.length;j++)
-      {
-        var apiname = api[j];
-        apire[j] = this.checkArray(dapi, apiname);
-      }
-      console.info(apire)
-      for (var j=0;j<res.length;j++)
-      {
-        var apiname = res[j];
-        resre[j] = this.checkArray(dres, apiname);
-      }
-      for (var j=0;j<ver.length;j++)
-      {
-        var apiname = ver[j];
-        verre[j] = this.checkArray(dver, apiname);
-      }
-      var obj = new Object();
-      obj.apiGroups = apire;
-      obj.resources = resre;
-      obj.verbs = verre;
-      newobj[k] = obj;
-    }
-    this.scope.databool = newobj;
-  }
-
-  updateData(){
-    let newrules = new Array();
-    var api = this.apiGroups;
-    var res = this.resources;
-    var ver = this.verbs;
-    for (var k = 0; k < this.scope.databool.length; k++){
-      let dapi = this.scope.databool[k].apiGroups;
-      let dres = this.scope.databool[k].resources;
-      let dver = this.scope.databool[k].verbs;
-      var apire = new Array();
-      var resre = new Array();
-      var verre = new Array();
-      for (var j=0;j<api.length;j++)
-      {
-        var name = api[j];
-        if(dapi[j]){
-          apire.push(name);
-        }
-      }
-      for (var j=0;j<res.length;j++)
-      {
-        var name = res[j];
-        if(dres[j]){
-          resre.push(name);
-        }
-      }
-      for (var j=0;j<ver.length;j++)
-      {
-        var name = ver[j];
-        if(dver[j]){
-          verre.push(name);
-        }
-      }
-      var obj = new Object();
-      obj.apiGroups = apire;
-      obj.resources = resre;
-      obj.verbs = verre;
-      newrules[k] = obj;
-    }
-    this.scope.rules = newrules;
-  }
-
-  checkArray(array,e)
-  {
-    console.info("check"+typeof array)
-    let result = false;
-    angular.forEach(array, function (value, key) {
-      console.info(value+" "+e)
-      console.info(value == e)
-      if(value == e){
-        result = true;
-      }
-    })
-    if(result == true){
-      return true;
-    }else {
-      return false;
-    }
   }
 
   /**
    * @private
    */
   init_() {
-    let obj = new Object();
-    obj.kind = this.resourceKindName;
-    obj.apiVersion = "rbac.authorization.k8s.io/v1";
-    obj.metadata = new Object();
-    obj.metadata.name = "";
-    obj.metadata.namespace = this.stateParams_.namespace;
-    let ruleobj = new Object();
-    ruleobj.verbs = [];
-    ruleobj.apiGroups = [];
-    ruleobj.resources = [];
-    obj.rules = [];
-    this.scope.rules.push(ruleobj);
-    this.dataObj = obj;
-    this.updatebool();
+    this.serviceAccountObject.apiVersion = "v1";
+    this.serviceAccountObject.kind = this.resourceKindName;
+    let medata = new Object();
+    medata.name = "";
+    medata.namespaces = this.defaultNamespace;
+    this.serviceAccountObject.metadata = medata;
+  }
+
+
+  getFirstN(rolenames){
+    let re = "";
+    angular.forEach(rolenames, function (value, key) {
+      re = re+value.substr(0,1);
+    })
+    return re;
   }
 
   /**
    * @export
    */
   commit() {
-    this.updateData();
-    this.dataObj.rules = this.scope.rules;
-    this.deployContent(angular.toJson(this.dataObj, true),this.dataObj.metadata.namespace);
+    this.deployContent(angular.toJson(this.serviceAccountObject, true),this.defaultNamespace);
+    console.info("start")
+    console.info(this.serviceAccountObject.metadata.name)
+    for (var i=0;i<this.clusterroles.length;i++)
+    {
+      this.addClusterRolebinding(this.serviceAccountObject.metadata.name, this.clusterroles[i]);
+    }
+    for (var i=0;i<this.roles.length;i++)
+    {
+      this.addRolebinding(this.serviceAccountObject.metadata.name, this.roles[i]);
+    }
+    for (var i=0;i<this.roleBindingObjects.length;i++)
+    {
+      let truenamespace = this.roleBindingObjects[i].metadata.namespace;
+      this.deployContent(angular.toJson(this.roleBindingObjects[i], true),truenamespace);
+    }
+    for (var i=0;i<this.clusterRoleBindingObjects.length;i++)
+    {
+      this.deployContent(angular.toJson(this.clusterRoleBindingObjects[i], true));
+    }
   }
 
   /**
@@ -270,52 +183,52 @@ export class AddRoleController {
     }
   }
 
-/*
-
-  changN(vname,index,val){
-    console.info(vname+" "+index+" "+val);
-    console.info("change")
-    console.info(this.scope.rules);
-    if(vname === "verbs"){
-      let ind = this.scope.rules[index].verbs.indexOf(val);
-      console.info(this.scope.rules)
-      console.info(ind)
-      if(ind === -1){
-        console.info("befo")
-        console.info(this.scope.rules[index])
-        this.scope.rules[index].verbs.push(val);
-        console.info("end")
-        console.info(this.scope.rules[index])
-      }else {
-        console.info("verbs have")
-        this.scope.rules[index].verbs.splice(ind, 1)
-      }
-    }else if (vname === "apiGroups"){
-      let ind = this.scope.rules[index].apiGroups.indexOf(val);
-      console.info(this.scope.rules)
-      console.info(ind)
-      if(ind === -1){
-        this.scope.rules[index].apiGroups.push(val);
-      }else {
-        console.info("apiGroups have")
-        this.scope.rules[index].apiGroups.splice(ind, 1)
-      }
-    } else if (vname === "resources"){
-      let ind = this.scope.rules[index].resources.indexOf(val);
-      console.info(this.scope.rules)
-      console.info(ind)
-      if(ind === -1){
-        this.scope.rules[index].resources.push(val);
-      }else {
-        console.info("resources have")
-        this.scope.rules[index].resources.splice(ind, 1)
-      }
-    }
-    console.info(this.scope.rules)
-    //this.updatebool();
+  addRolebinding(saname,rolename){
+    let truename = rolename.split(':')[0];
+    let truenamespace = rolename.split(':')[1];
+    let rbobj = new Object();
+    rbobj.apiVersion = "rbac.authorization.k8s.io/v1";
+    rbobj.kind = "RoleBinding";
+    let rbmedata = new Object();
+    rbmedata.name = "user--"+saname+"-role--"+truename;
+    rbmedata.namespaces = truenamespace;
+    rbobj.metadata = rbmedata;
+    let roleRef = new Object();
+    roleRef.apiGroup = "rbac.authorization.k8s.io";
+    roleRef.kind = "Role";
+    roleRef.name = truename;
+    roleRef.namespace = truenamespace;
+    rbobj.roleRef = roleRef;
+    let subjects = new Array();
+    let roleobj = new Object();
+    roleobj.kind = this.resourceKindName;
+    roleobj.namespace = this.defaultNamespace;
+    roleobj.name = saname;
+    subjects.push(roleobj);
+    rbobj.subjects = subjects;
+    this.roleBindingObjects.push(rbobj)
   }
-*/
-
+  addClusterRolebinding(saname,rolename){
+    let rbobj = new Object();
+    rbobj.apiVersion = "rbac.authorization.k8s.io/v1";
+    rbobj.kind = "ClusterRoleBinding";
+    let rbmedata = new Object();
+    rbmedata.name = "user--"+saname+"-clusterrole--"+rolename;
+    rbobj.metadata = rbmedata;
+    let roleRef = new Object();
+    roleRef.apiGroup = "rbac.authorization.k8s.io";
+    roleRef.kind = "ClusterRole";
+    roleRef.name = rolename;
+    rbobj.roleRef = roleRef;
+    let subjects = new Array();
+    let roleobj = new Object();
+    roleobj.kind = this.resourceKindName;
+    roleobj.namespace = this.defaultNamespace;
+    roleobj.name = saname;
+    subjects.push(roleobj);
+    rbobj.subjects = subjects;
+    this.clusterRoleBindingObjects.push(rbobj)
+  }
 
   /**
    * @param {string} content
@@ -323,7 +236,7 @@ export class AddRoleController {
    * @param {string} name
    * @return {!angular.$q.Promise}
    */
-  deployContent(content, namespace,validate = true, name = '') {
+  deployContent(content, namespace = '',validate = true, name = '') {
     let defer = this.q_.defer();
     let tokenPromise = this.tokenService_.getTokenForAction('appdeploymentfromfile');
 
@@ -348,12 +261,10 @@ export class AddRoleController {
             defer.resolve(response);
             this.log_.info('Deployment is completed: ', response);
             if (response.error.length > 0) {
-              //this.errorDialog_.open('Deployment has been partly completed', response.error);
               this.errormsg = response.error;
+              //this.errorDialog_.open('Deployment has been partly completed', response.error);
             }
-            //this.state_.go(overview);
-            this.mdDialog_.hide();
-            this.mdDialog_.cancel();
+            //this.state_.go(overview);;
           },
           (err) => {
             defer.reject(err);
@@ -361,6 +272,7 @@ export class AddRoleController {
               this.handleDeployAnywayDialog_(content, err.data);
             } else {
               let errMsg = this.localizerService_.localize(err.data);
+              console.info(errMsg)
               this.log_.error('Error deploying application:', err);
               //this.errorDialog_.open(this.i18n.MSG_DEPLOY_DIALOG_ERROR, errMsg);
               this.errormsg = errMsg;
@@ -374,6 +286,12 @@ export class AddRoleController {
 
     defer.promise
     .finally(() => {
+      console.info("finish")
+      this.isfinishs = this.isfinishs+1;
+      if(this.isfinishs == 3){
+        this.mdDialog_.hide();
+        this.mdDialog_.cancel();
+      }
       this.isDeployInProgress_ = false;
     })
     .catch((err) => {
@@ -461,4 +379,28 @@ export class AddRoleController {
   }
 
 
+}
+
+/**
+ * @param {!angular.$resource} $resource
+ * @return {!angular.Resource}
+ * @ngInject
+ */
+export function roleListResource($resource) {
+  return $resource('api/v1/rbac/role');
+}
+
+/**
+ * @param {!angular.Resource} kdRoleListResource
+ * @param {!./../../common/dataselect/service.DataSelectService} kdDataSelectService
+ * @return {!angular.$q.Promise}
+ * @ngInject
+ */
+export function resolveRoleList($resource, kdDataSelectService,selectNamespace) {
+  let query = kdDataSelectService.getDefaultResourceQuery('');
+  if(selectNamespace.length > 0){
+    query.filterBy = "namespace,"+selectNamespace
+  }
+  console.info(query)
+  return $resource('api/v1/rbac/role').get(query);
 }

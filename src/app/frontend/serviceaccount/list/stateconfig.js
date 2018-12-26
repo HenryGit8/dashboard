@@ -13,7 +13,7 @@
 // limitations under the License.
 
 import {breadcrumbsConfig} from '../../common/components/breadcrumbs/service';
-import {stateName as parentStateName} from '../../config/state';
+import {stateName as parentStateName} from '../../cluster/state';
 
 import {stateName as parentState, stateUrl} from './../state';
 import {ServiceAccountListController} from './controller';

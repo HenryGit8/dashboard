@@ -21,14 +21,14 @@ limitations under the License.
                        list-resource="::$ctrl.rolebindingListResource">
   <kd-resource-card-list-header>
     <kd-resource-card-list-title ng-transclude="header">
-      [[Rolebinding|Label which appears above the list of such objects.]]
+      [[Rolebinding|Label for Rolebinding.]]
     </kd-resource-card-list-title>
     <kd-resource-card-list-filter></kd-resource-card-list-filter>
   </kd-resource-card-list-header>
 
   <kd-zero-state ng-if="!$ctrl.rolebindingList.listMeta.totalItems">
     <kd-zero-state-text ng-transclude="zerostate">
-      [[There are no Rolebinding to display.|Text for deployment card list zerostate.]]
+      [[There are no Rolebinding to display.|Text for rolebinding card list zerostate.]]
     </kd-zero-state-text>
   </kd-zero-state>
   <kd-resource-card-header-columns ng-show="$ctrl.rolebindingList.listMeta.totalItems">
@@ -69,11 +69,11 @@ limitations under the License.
   <kd-resource-card-list-footer>
     <md-button class="md-primary kd-cancel-btn"
                ng-click="::$cardListCtrl.addRoleDialog()">
-      [[Create Role|Label for Add button.]]
+      [[Create Role|Label for Create Role| button.]]
     </md-button>
     <md-button class="md-primary kd-cancel-btn"
                ng-click="::$cardListCtrl.addClusterRoleDialog()">
-      [[Create ClusterRole|Label for Add button.]]
+      [[Create ClusterRole|Label for Create ClusterRole button.]]
     </md-button>
     <kd-resource-card-list-pagination></kd-resource-card-list-pagination>
   </kd-resource-card-list-footer>

@@ -14,12 +14,12 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-<md-dialog aria-label="[[Add a {{::$ctrl.resourceKindName}}|Title for a delete resource dialog.]]"
+<md-dialog aria-label="[[Add a {{::$ctrl.resourceKindName}}|Title for a Add ServiceAccount dialog.]]"
            layout="column"
            class="kd-edit-dialog">
   <md-dialog-content layout-padding
                      class="kd-json-edit-dialog-content">
-    <h4 class="md-title">[[Add a {{::$ctrl.resourceKindName}}|Title for a delete resource dialog.]]</h4>
+    <h4 class="md-title">[[Add a {{::$ctrl.resourceKindName}}|Title for a add resource dialog.]]</h4>
       <div class="cont">
         <md-input-container>
           <label>name</label>
@@ -31,7 +31,7 @@ limitations under the License.
           </div>
         </md-input-container>
       </div>
-    <label class="maeg">Roles</label>
+    <label class="maeg">[[Roles|Label for Roles.]]</label>
     <!--<md-chips ng-model="$ctrl.roles" readonly="false" md-removable="true"></md-chips>-->
     <md-chips ng-model="$ctrl.roles" readonly="true" md-removable="true">
       <md-chip-template>
@@ -39,7 +39,7 @@ limitations under the License.
         <em>{{$chip.split(':')[1]}}</em>
       </md-chip-template>
     </md-chips>
-    <label class="maeg">ClusterRoles</label>
+    <label class="maeg">[[ClusterRoles|Label for ClusterRoles.]]</label>
     <md-chips ng-model="$ctrl.clusterroles" readonly="true" md-removable="true">
       <!--<md-chip-template>
         <strong>{{$chip}}</strong>
@@ -62,11 +62,11 @@ limitations under the License.
       <label class="redmaeg">{{$ctrl.errormsg}}</label>
       <md-button class="md-primary kd-cancel-btn"
                  ng-click="$ctrl.cancel()">
-        [[Cancel|Label for cancel button.]]
+        [[Cancel|Label for Cancel button.]]
       </md-button>
       <md-button class="md-primary kd-delete-btn"
                  ng-click="$ctrl.commit()">
-        [[Commit|Label for commit button.]]
+        [[Commit|Label for Commit button.]]
       </md-button>
     </md-dialog-actions>
   </md-dialog-content>

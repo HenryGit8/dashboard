@@ -19,23 +19,23 @@ limitations under the License.
            class="kd-edit-dialog">
   <md-dialog-content layout-padding
                      class="kd-json-edit-dialog-content">
-    <h4 class="md-title">[[Edit a {{::$ctrl.resourceKindName}}|Title for a delete resource dialog.]]</h4>
+    <h4 class="md-title">[[Edit a {{::$ctrl.resourceKindName}}|Title for a edit resource dialog.]]</h4>
     <div class="cont">
       <div ng-if="databool" ng-repeat="value in databool track by $index">
         <div class="kd-card-bg-group-divider"></div>
-        <label class="maeg">ApiGroups</label>
+        <label class="maeg">[[ApiGroups|Label for ApiGroups.]]</label>
         <div class="kd-card-group-divider"></div>
         <div>
           <md-checkbox ng-repeat="apiGroup in ::$ctrl.apiGroups track by $index" ng-model="databool[$parent.$index].apiGroups[$index]"
                        aria-label="::apiGroup">{{::apiGroup}}</md-checkbox>
         </div>
-        <label class="maeg">Resources</label>
+        <label class="maeg">[[Resources|Label for Resources.]]</label>
         <div class="kd-card-group-divider"></div>
         <div>
           <md-checkbox ng-repeat="resource in ::$ctrl.resources track by $index" ng-model="databool[$parent.$index].resources[$index]"
                        aria-label="::resource">{{::resource}}</md-checkbox>
         </div>
-        <label class="maeg">Verbs</label>
+        <label class="maeg">[[Verbs|Label for Verbs.]]</label>
         <div class="kd-card-group-divider"></div>
         <div>
           <md-checkbox ng-repeat="verb in ::$ctrl.verbs track by $index" ng-model="databool[$parent.$index].verbs[$index]"
@@ -44,7 +44,7 @@ limitations under the License.
 
         <md-button ng-if="databool.length > 1" class="md-primary kd-cancel-btn"
                    ng-click="$ctrl.delete($index)">
-          [[Delete this|Label for Add button.]]
+          [[Delete this|Label for Delete this button.]]
         </md-button>
       </div>
 

@@ -84,6 +84,7 @@ export class AddSaController {
     console.info(this.roleList)
     this.roleListResource = roleListResource($resource);
     this.isfinishs = 0;
+    this.watitimes = 1;
     this.errormsg = "";
 
     this.init_();
@@ -117,6 +118,9 @@ export class AddSaController {
     this.deployContent(angular.toJson(this.serviceAccountObject, true),this.defaultNamespace);
     console.info("start")
     console.info(this.serviceAccountObject.metadata.name)
+    console.info(this.watitimes);
+    this.watitimes = this.watitimes + this.clusterroles.length + this.roles.length;
+    console.info(this.watitimes);
     for (var i=0;i<this.clusterroles.length;i++)
     {
       this.addClusterRolebinding(this.serviceAccountObject.metadata.name, this.clusterroles[i]);
@@ -287,8 +291,10 @@ export class AddSaController {
     defer.promise
     .finally(() => {
       console.info("finish")
+      console.info(this.isfinishs);
+      console.info(this.watitimes);
       this.isfinishs = this.isfinishs+1;
-      if(this.isfinishs == 3){
+      if(this.isfinishs == this.watitimes){
         this.mdDialog_.hide();
         this.mdDialog_.cancel();
       }

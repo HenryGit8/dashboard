@@ -19,22 +19,21 @@ limitations under the License.
   <kd-info-card-section>
     <kd-object-meta-info-card object-meta="::$ctrl.rolebinding.metadata">
     </kd-object-meta-info-card>
-    <kd-info-card-entry title="[[King|Label 'King' for the rolebinding on the rolebinding details page.]]">
+    <kd-info-card-entry title="[[King|Label for King.]]">
       {{::$ctrl.rolebinding.kind}}
     </kd-info-card-entry>
-    <kd-info-card-entry title="[[Role King|Role King for the rolebinding on the rolebinding details page.]]">
+    <kd-info-card-entry title="[[Role King|Label for Role King.]]">
       {{::$ctrl.rolebinding.roleRef.kind}}
     </kd-info-card-entry>
-    <kd-info-card-entry title="[[Role Name|Role Name for the rolebinding on the rolebinding details page.]]">
+    <kd-info-card-entry title="[[Role Name|Label for Role Name.]]">
       {{::$ctrl.rolebinding.roleRef.name}}
     </kd-info-card-entry>
 
-    <kd-info-card-entry title="[[Account|Account for the rolebinding on the rolebinding details page.]]">
+    <kd-info-card-entry title="[[Account|Label for Account.]]">
       <div ng-repeat="item in ::$ctrl.rolebinding.subjects"
            layout="row">
-        <kd-middle-ellipsis display-string="{{::item}}"
-                            flex="shrink">
-          <kd-middle-ellipsis>
+        <kd-middle-ellipsis display-string="{{::item}}" flex="shrink">
+          </kd-middle-ellipsis>
       </div>
     </kd-info-card-entry>
   </kd-info-card-section>

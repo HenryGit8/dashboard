@@ -10,7 +10,6 @@
   <translation id="6381847044207707182" key="MSG_ABOUT_ACTIONBAR_1" desc="Label of button linking to documentation.">Documentation</translation>
   <translation id="2035796754621111890" key="MSG_ABOUT_ACTIONBAR_2" desc="Tooltip of button linking to new issue on GitHub used to send feedback.">Create new issue on GitHub</translation>
   <translation id="5625550638633956281" key="MSG_ABOUT_ACTIONBAR_3" desc="Label of button linking to new issue on GitHub used to send feedback.">Send feedback</translation>
-  <translation id="6783150167357318030" key="MSG_ACTION_BAR_DELETE_TOOLTIP" desc="Generic &quot;Delete some resource&quot; tooltip text which appears over the delete icon on the global action bar.">删除 <ph name="RESOURCE_NAME"/></translation>
   <translation id="1421031463694814701" key="MSG_ACTION_BAR_EDIT_TOOLTIP" desc="Generic &quot;Edit some resource&quot; tooltip text which appears over the edit icon on the global action bar.">编辑 <ph name="RESOURCE_NAME"/></translation>
   <translation id="1024358167652076581" key="MSG_ALL_NAMESPACES" desc="Text for dropdown item that indicates that no namespace was selected">所有命名空间</translation>
   <translation id="2436932884134192170" key="MSG_AUTH_STATUS_HEADER" desc="Login status displayed when authorization header is used.">已使用验证头登录</translation>

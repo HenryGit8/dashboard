@@ -21,7 +21,7 @@ limitations under the License.
                        list-resource="$cardListCtrl.roleListResource">
   <kd-resource-card-list-header>
     <kd-resource-card-list-title ng-transclude="header">
-      [[Roles|Label which appears above the list of such objects.]]
+      [[Roles|Label for Role.]]
     </kd-resource-card-list-title>
     <kd-resource-card-list-filter></kd-resource-card-list-filter>
   </kd-resource-card-list-header>
@@ -66,11 +66,11 @@ limitations under the License.
   <kd-resource-card-list-footer>
     <md-button ng-if="$cardListCtrl.ise" class="md-primary kd-cancel-btn"
                ng-click="::$cardListCtrl.addRoleDialog()">
-      [[Create Role|Label for Add button.]]
+      [[Create Role|Label for Create ClusterRole button.]]
     </md-button>
     <md-button ng-if="$cardListCtrl.ise" class="md-primary kd-cancel-btn"
                ng-click="::$cardListCtrl.addClusterRoleDialog()">
-      [[Create ClusterRole|Label for Add button.]]
+      [[Create ClusterRole|Label for Create ClusterRole button.]]
     </md-button>
     <kd-resource-card-list-pagination></kd-resource-card-list-pagination>
   </kd-resource-card-list-footer>

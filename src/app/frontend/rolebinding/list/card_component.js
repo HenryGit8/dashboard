@@ -130,16 +130,16 @@ export class RolebindingCardController {
     }
 
     /** @type {string} @desc Status message showing a waiting status with [reason].*/
-    let MSG_POD_LIST_POD_WAITING_STATUS = goog.getMsg('Waiting: {$reason}', {'reason': reason});
+    let MSG_ROLEBINDING_WAITING_STATUS = goog.getMsg('Waiting: {$reason}', {'reason': reason});
     /** @type {string} @desc Status message showing a terminated status with [reason].*/
-    let MSG_POD_LIST_POD_TERMINATED_STATUS =
+    let MSG_OLEBINDING_POD_TERMINATED_STATUS =
         goog.getMsg('Terminated: {$reason}', {'reason': reason});
 
     if (msgState === 'waiting') {
-      return MSG_POD_LIST_POD_WAITING_STATUS;
+      return MSG_ROLEBINDING_WAITING_STATUS;
     }
     if (msgState === 'terminated') {
-      return MSG_POD_LIST_POD_TERMINATED_STATUS;
+      return MSG_OLEBINDING_POD_TERMINATED_STATUS;
     }
     return this.rolebinding.rolebindingStatus.rolebindingPhase;
   }

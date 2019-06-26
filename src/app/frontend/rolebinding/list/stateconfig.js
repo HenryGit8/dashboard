@@ -23,7 +23,7 @@ import {RolebindingListController} from './controller';
  */
 const i18n = {
   /** @type {string} @desc Label 'Rolebindings' that appears as a breadcrumbs on the action bar. */
-  MSG_BREADCRUMBS_PODS_LABEL: goog.getMsg('Rolebindings'),
+  MSG_BREADCRUMBS_ROLEBINDING_LABEL: goog.getMsg('Rolebindings'),
 };
 
 /**
@@ -39,7 +39,7 @@ export const config = {
   },
   data: {
     [breadcrumbsConfig]: {
-      'label': i18n.MSG_BREADCRUMBS_PODS_LABEL,
+      'label': i18n.MSG_BREADCRUMBS_ROLEBINDING_LABEL,
       'parent': workloadsStateName,
     },
   },

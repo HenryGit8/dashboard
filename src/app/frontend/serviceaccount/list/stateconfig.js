@@ -23,7 +23,7 @@ import {ServiceAccountListController} from './controller';
  */
 const i18n = {
   /** @type {string} @desc Label 'ServiceAccounts' that appears as a breadcrumbs on the action bar. */
-  MSG_BREADCRUMBS_NAMESPACES_LABEL: goog.getMsg('ServiceAccount'),
+  MSG_BREADCRUMBS_SERVICEACCOUNT_LABEL: goog.getMsg('ServiceAccount'),
 };
 
 /**
@@ -39,7 +39,7 @@ export const config = {
   },
   data: {
     [breadcrumbsConfig]: {
-      'label': i18n.MSG_BREADCRUMBS_NAMESPACES_LABEL,
+      'label': i18n.MSG_BREADCRUMBS_SERVICEACCOUNT_LABEL,
       'parent': parentStateName,
     },
   },
